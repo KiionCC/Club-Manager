@@ -1,0 +1,56 @@
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">创建社团</view>
+    <view class="page__desc">提交信息后，经过管理员审核才能成立社团</view>
+  </view>
+  <view class="page__bd">
+    <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">请填写所有信息</view>
+    <view class="weui-toptips weui-toptips_warn" wx:if="{{showBadTips1}}">已存在同名社团</view>
+    <view class="weui-toptips weui-toptips_warn" wx:if="{{showBadTips2}}">已有其他同名社团申请</view>
+
+    <view class="weui-cells__title">社团名</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__bd">
+          <input class="weui-input" placeholder="不超过10个字" maxlength="10" bindinput="InputName" />
+        </view>
+      </view>
+    </view>
+    <view class="weui-cells__title">社团简介</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <textarea class="weui-textarea" placeholder="不超过100个字" maxlength="100" auto-focus="true" style="height: 3.3em" bindinput="InputIntro" />
+          <view class="weui-textarea-counter">{{introduction.length}}/100</view>
+        </view>
+      </view>
+    </view>
+    <view class="weui-cells__title">社团头像</view>
+    <view class="weui-cells">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <view class="weui-uploader">
+            <view class="weui-uploader__hd">
+            </view>
+            <view class="weui-uploader__bd">
+              <view class="weui-uploader__files" id="uploaderFiles">
+                <block wx:for="{{files}}" wx:key="*this">
+                  <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+                    <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+                  </view>
+                </block>
+
+                <view class="weui-uploader__input-box" hidden="{{files.length}}">
+                  <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="weui-btn-area">
+      <button class="weui-btn" type="primary" bindtap="upload">提交</button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,8 @@
+/* pages/handleJoin/index.wxss */
+.cancel{
+  margin-left:1em;
+  font-size:13px;
+}
+.weui-tab__panel{
+  padding-top: 0
+}
