@@ -1,0 +1,64 @@
+<!--pages/member/member.wxml-->
+<view class="member-container">
+  <view class="header-info">
+    <!--背景图片  -->
+    <view class="bg-wrapper"></view>
+    <image class="avatar" src="{{hasUserInfo ? userInfo.avatarUrl : '../../images/user-unlogin.png'}}" background-size="cover"></image>
+    <view>
+      <button class="loginButton" wx:if="{{!hasUserInfo}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">登录</button>
+      <view wx:else>
+        <text class="nickname">{{userInfo.nickName}}</text>
+      </view>
+    </view>
+    <!--认证信息  -->
+    <text class="motto" wx:if="{{isRegistered}}">学号：{{stuNum}}\n姓名：{{name}}</text>
+  </view>
+  <!--个人信息  -->
+  <view class="my-info" bindtap='myInfo' hidden="{{!isRegistered}}" hover-class="list-hover">
+    <view class="left">
+      <view style="flex: 1;display: flex;align-items: center; ">
+        <image class="icon-order" src="../../images/Marker.png"></image>
+        <text>修改信息</text>
+      </view>
+    </view>
+  </view>
+
+
+  <view class="stu_register" bindtap='wantRegister' hidden="{{isRegistered}}" hover-class="list-hover">
+    <view class="left">
+      <view style="flex: 1;display: flex;align-items: center; ">
+        <image class="icon-order" src="../../images/Student.png"></image>
+        <text style="float:center">学生认证</text>
+      </view>
+      <text class="Register" style="color:green" wx:if="{{isRegistered}}">已认证</text>
+      <text class="Register" style="color:red" wx:if="{{!isRegistered}}">未认证</text>
+    </view>
+  </view>
+
+  <view class="my-info" bindtap='createClub' hidden="{{!isRegistered}}" hover-class="list-hover">
+    <view class="left">
+      <view style="flex: 1;display: flex;align-items: center; ">
+        <image class="icon-order" src="../../images/Puzzle-Piece.png"></image>
+        <text>创建社团</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="my-info" bindtap='myApplication' hidden="{{!isRegistered}}" hover-class="list-hover">
+    <view class="left">
+      <view style="flex: 1;display: flex;align-items: center; ">
+        <image class="icon-order" src="../../images/applications.png"></image>
+        <text>我的申请</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="my-info" bindtap='handle' hidden="{{!isAdmin}}" hover-class="list-hover" style="margin-top: 10px">
+    <view class="left">
+      <view style="flex: 1;display: flex;align-items: center; ">
+        <image class="icon-order" src="../../images/Stamp.png"></image>
+        <text>处理创建社团申请（管理员入口）</text>
+      </view>
+    </view>
+  </view>
+</view>

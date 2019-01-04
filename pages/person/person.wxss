@@ -1,0 +1,104 @@
+/* pages/member/member.wxss */
+
+.member-container {
+  font-size: 14px;
+}
+
+.header-info {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bg-wrapper {
+  height: 420rpx;
+  width: 100%;
+  background-color: #0cc;
+}
+
+.avatar {
+  position: absolute;
+  left: 30rpx;
+  top: 120rpx;
+  overflow: hidden;
+  width: 160rpx;
+  height: 160rpx;
+  margin-top: 50rpx;
+  margin-bottom: 20rpx;
+  border-radius: 50%;
+}
+
+.loginButton {
+  background: none;
+  position: absolute;
+  left: 210rpx;
+  top: 100rpx;
+  color: #fff;
+  font-size: 17px;
+}
+
+.loginButton::after {
+  border: none;
+}
+
+.nickname {
+  position: absolute;
+  left: 230rpx;
+  top: 170rpx;
+  color: #fff;
+  font-size: 24px;
+}
+
+.motto {
+  position: absolute;
+  left: 230rpx;
+  top: 240rpx;
+  font-size: 14px;
+  color: #fff;
+}
+
+.stu_register {
+  display: flex;
+  align-items: center; /*用于指定侧轴(垂直方向)上Flex子项的对齐方式*/
+  height: 120rpx;
+  border-top: 3rpx solid #f8f8f8;
+  border-bottom: 3rpx solid #f8f8f8;
+  color: #515151;
+  padding: 0 20rpx; /*内边距*/
+  background: #fff;
+}
+
+.left {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.icon-order {
+  width: 60rpx;
+  height: 60rpx;
+  margin-right: 50rpx;
+}
+
+.my-info {
+  display: flex;
+  align-items: center; /*用于指定侧轴(垂直方向)上Flex子项的对齐方式*/
+  height: 120rpx;
+  border-top: 3rpx solid #f8f8f8;
+  border-bottom: 3rpx solid #f8f8f8;
+  color: #515151;
+  padding: 0 20rpx; /*内边距*/
+  margin-top: 0;
+  background: #fff;
+}
+
+.ma {
+  width: 100%;
+  height: 280px;
+}
+
+.list-hover {
+  background-color: #ececec;
+}

@@ -1,0 +1,3 @@
+.button[type=primary]{
+  color: #00cccc
+}

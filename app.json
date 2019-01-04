@@ -1,0 +1,56 @@
+{
+  "pages":[
+    "pages/event/event",
+    "pages/person/person",
+    "pages/clubs/clubs",
+    "pages/innerClub/index",
+    "pages/search/search",
+    "pages/register/index",
+    "pages/modifyInfo/index",
+    "pages/createClub/index",
+    "pages/myApplication/index",
+    "pages/handleCreate/index",
+    "pages/handleJoin/index",
+    "pages/createVoting/index",
+    "pages/vote/index"
+  ],
+  "window":{
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#00CCCC",
+    "navigationBarTitleText": "TJClubs",
+    "navigationBarTextStyle":"white"
+  },
+  "tabBar": {
+    "color": "#2c2c2c",
+    "selectedColor": "#00cccc",
+    "borderStyle": "white",
+    "backgroundColor": "white",
+    "list": [
+      {
+        "selectedIconPath": "images/Kite_selected.png",
+        "iconPath": "images/Kite.png",
+        "pagePath": "pages/event/event",
+        "text": "活动"
+      },
+      {
+        "selectedIconPath": "images/Binders_selected.png",
+        "iconPath": "images/Binders.png",
+        "pagePath": "pages/clubs/clubs",
+        "text": "社团"
+      },
+      {
+        "selectedIconPath": "images/search_selected.png",
+        "iconPath": "images/search.png",
+        "pagePath": "pages/search/search",
+        "text": "搜索"
+      },
+      {
+        "selectedIconPath": "images/Packman_selected.png",
+        "iconPath": "images/Packman.png",
+        "pagePath": "pages/person/person",
+        "text": "个人"
+      }
+    ]
+  }
+}

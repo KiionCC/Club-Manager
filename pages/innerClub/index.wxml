@@ -1,0 +1,64 @@
+<view class="page">
+    <view class="page__bd">
+        <view class="weui-tab">
+            <view class="weui-navbar">
+                <block wx:for="{{tabs}}" wx:key="*this">
+                    <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+                        <view class="weui-navbar__title">{{item}}</view>
+                    </view>
+                </block>
+                <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+            </view>
+            <view class="weui-tab__panel">
+                <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+                  <view wx:if="{{!isEmpty}}">
+                    
+                  </view>
+                  <view wx:else>
+                    <text></text>
+                  </view>
+                </view>
+                <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+                  <view wx:if="{{isVote}}">
+                  <block wx:for="{{votes}}" wx:key="*this">
+                    <view class="weui-panel weui-panel_access" >
+                      <view class="weui-panel__bd" >
+                        <view class="weui-media-box weui-media-box_text"  wx:for-index="index" data-index="{{index}}" bindtap='jumpToVote' hover-class='vote-hover'>
+                          <view class="weui-media-box__title weui-media-box__title_in-text">{{item.name}}</view>
+                          <view class="weui-media-box__desc weui-media-box__title_in-text">截止时间：{{item.deadline}}</view>
+                          <view class="weui-media-box__desc" wx:if="{{item.image}}">
+                            <image  src="{{item.image}}"></image>
+                          </view>
+                        </view>
+                      </view>
+                    </view>
+                  </block>
+                  </view>
+                  <view wx:else>
+                      <text></text>
+                  </view>
+                </view>
+                <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
+                  <view class="weui-cells__title">成员功能</view>
+                    <view class="weui-grids">
+                      <block wx:for="{{memFunc}}" wx:key="*this" >
+                        <navigator url="" class="weui-grid" hover-class="weui-grid_active" >
+                          <image class="weui-grid__icon" src="../../images/{{item.name}}.png" />
+                          <view class="weui-grid__label">{{item.name}}</view>
+                        </navigator>
+                      </block>
+                    </view>
+                  <view class="weui-cells__title">管理员功能</view>
+                  <view class="weui-grids">
+                    <block wx:for="{{adminFunc}}" wx:key="*this">
+                      <navigator url="{{item.url}}" class="weui-grid" hover-class="weui-grid_active">
+                        <image class="weui-grid__icon" src="../../images/{{item.name}}.png" />
+                        <view class="weui-grid__label">{{item.name}}</view>
+                      </navigator>
+                    </block>
+                  </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
