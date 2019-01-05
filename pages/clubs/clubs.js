@@ -55,7 +55,6 @@ Page({
     //   }
     // })
 
-
     /*获取我的社团列表*/
     if (app.globalData.isRegistered) {
       wx.showLoading({
