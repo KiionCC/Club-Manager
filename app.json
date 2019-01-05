@@ -1,5 +1,5 @@
 {
-  "pages":[
+  "pages": [
     "pages/event/event",
     "pages/person/person",
     "pages/clubs/clubs",
@@ -12,14 +12,15 @@
     "pages/handleCreate/index",
     "pages/handleJoin/index",
     "pages/createVoting/index",
-    "pages/vote/index"
+    "pages/vote/index",
+    "pages/test/test"
   ],
-  "window":{
+  "window": {
     "backgroundColor": "#F6F6F6",
-    "backgroundTextStyle":"light",
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#00CCCC",
     "navigationBarTitleText": "TJClubs",
-    "navigationBarTextStyle":"white"
+    "navigationBarTextStyle": "white"
   },
   "tabBar": {
     "color": "#2c2c2c",
@@ -42,7 +43,7 @@
       {
         "selectedIconPath": "images/search_selected.png",
         "iconPath": "images/search.png",
-        "pagePath": "pages/search/search",
+        "pagePath": "pages/test/test",
         "text": "搜索"
       },
       {
