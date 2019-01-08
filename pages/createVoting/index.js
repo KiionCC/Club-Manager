@@ -203,6 +203,8 @@ Page({
           isSelection = false
         }
       }
+      var end_date = event.date + ' ' + event.time + ':00';
+      var deadline = new Date(end_date);
       if(isSelection){
         /*符合提交要求*/
         console.log('符合提交要求')
@@ -217,8 +219,7 @@ Page({
               club_id: app.globalData.currentClub._id,
               introduction: that.data.introduction,
               student_id: app.globalData.stuNum,
-              date: that.data.date,
-              time: that.data.time,
+              deadline: deadline,
               select_list: that.data.optionList,
               icon_id: '000',
             },
@@ -238,8 +239,7 @@ Page({
               club_id: app.globalData.currentClub._id,
               introduction: that.data.introduction,
               student_id: app.globalData.stuNum,
-              date: that.data.date,
-              time: that.data.time,
+              deadline: deadline,
               select_list: that.data.optionList,
               icon_id: that.data.files[0],
             },
