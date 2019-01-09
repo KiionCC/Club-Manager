@@ -24,7 +24,8 @@ exports.main = async (event, context) => {
           beginTime: beginTime,
           isPublic: event.isPublic,
           isSign: event.isSign,
-          isEnroll: event.isEnroll
+          isEnroll: event.isEnroll,
+          isOver: false
         }
       })
     }
