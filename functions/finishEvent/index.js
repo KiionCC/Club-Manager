@@ -21,13 +21,15 @@ exports.main = async(event, context) => { //event传入event_id，level修改对
     event_id: event.event_id,
   }).get()
   for (let i in member.data) {
-    await db.collection('club_member').where({
-      student_id: member.data[i].student_id,
-      club_id:member.data[i].club_id,
-    }).update({ // data 字段表示需修改的 JSON 数据
-      data: {
-        point: _.inc(event.level),
-      }
-    })
+    if (member.data[i].isSign == true) {
+      await db.collection('club_member').where({
+        student_id: member.data[i].student_id,
+        club_id: member.data[i].club_id,
+      }).update({ // data 字段表示需修改的 JSON 数据
+        data: {
+          point: _.inc(event.level),
+        }
+      })
+    }
   }
 }
