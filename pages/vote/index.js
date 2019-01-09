@@ -54,6 +54,26 @@ Page({
         that.setData({
           options: res.data
         })
+        /*判断是否已经投过票了 */
+        for (let i = 0; i < that.data.options.length; i++) {   //对vote中的每个选项查找
+          db.collection('mem_selection').where({
+            selection_id: that.data.options[i]._id,
+            student_id: app.globalData.stuNum,
+          }).get({
+            success(res1) {
+              db.collection('selections').doc(that.data.options[i]._id).get({
+                success(res2) {
+                  console.log(res2.data)
+                  if (res2.data.vote_id == that.data.voteData._id) {
+                    that.setData({
+                      isVoted: true
+                    })
+                  }
+                }
+              })
+            }
+          })
+        }
         /*获取选项最大值与百分比*/
         var temp = that.data.options[0].num
         for (var index in that.data.options) {
@@ -75,9 +95,11 @@ Page({
       }
     })
 
+
     /*判断投票是否过期 */
     db.collection('vote').doc(that.data.voteData._id).get({
       success(res) {
+        console.log(res)
         if (res.data.state == true) {
           if (res.data.deadline < new Date()) {
             wx.cloud.callFunction({
@@ -90,26 +112,6 @@ Page({
         }
       }
     })
-
-    /*判断是否已经投过票了 */
-    for (let c in that.data.options) {
-      db.collection('mem_selection').where({
-        selection_id: that.data.options[c]._id,
-        student_id: app.globalData.stuNum,
-      }).get({
-        success(res) {
-          db.collection('selections').doc(that.data.options[c]._id).get({
-            success(res){
-              if (res.data.vote_id == that.data.voteData._id){
-                that.setData({
-                  isVoted: true
-                })
-              }
-            }
-          })
-        }
-      })
-    }
   },
 
   /*单选change*/
@@ -252,6 +254,48 @@ Page({
       }
     }
 
+  },
+
+  cancelVote: function () {
+    var that = this
+    wx.cloud.callFunction({
+      name: 'cancelVote',
+      data: {
+        student_id: app.globalData.stuNum,
+        vote_id: that.data.voteData._id,
+      },
+      complete: res => {
+        console.log(res)
+      }
+    })
+    db.collection('selections').where({
+      vote_id: _.eq(that.data.voteData._id)
+    }).get({
+      success(res) {
+        that.setData({
+          options: res.data
+        })
+        /*获取选项最大值与百分比*/
+        var temp = that.data.options[0].num
+        for (var index in that.data.options) {
+          if (index.num > temp) {
+            temp = index.num
+          }
+        }
+        that.setData({
+          maxOption: temp
+        })
+        for (var i = 0; i < that.data.options.length; i++) {
+          var percent = 'options[' + i + '].percent'
+          var value = 'options[' + i + '].value'
+          that.setData({
+            [percent]: that.data.options[i].num / that.data.maxOption * 100,
+            [value]: i
+          })
+        }
+      }
+    })
   }
 
 })
+
