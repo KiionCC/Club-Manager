@@ -11,7 +11,7 @@ Page({
    */
   data: {
     eventData: {},
-    eventState: 0, //活动状态：0为报名未截止活动未结束，1为报名截止活动未结束，2为报名截止活动结束
+    eventState: 0,//活动状态：0为报名未截止活动未结束，1为报名截止活动未结束，2为报名截止活动结束
 
     myEnrollData: {},
 
@@ -21,7 +21,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     var that = this
     wx.setNavigationBarTitle({
       title: app.globalData.currentEvent.name //页面标题为社团名
@@ -64,66 +64,67 @@ Page({
       }
     })
 
-<<<<<<< Updated upstream
     //获取我的报名信息
     that.getMyEnroll()
-    
-=======
->>>>>>> Stashed changes
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
 
   //活动报名
-  enroll: function() {
+  enroll: function () {
     var that = this
+
+    wx.showLoading({
+      title: '提交中',
+    })
     wx.cloud.callFunction({
       name: "enrollEvent",
       data: {
@@ -132,30 +133,6 @@ Page({
         student_id: app.globalData.stuNum,
       },
       success(res) {
-        console.log(res)
-      }
-    })
-  },
-
-  //活动签到
-  sign: function() {
-    var that = this
-
-    wx.showLoading({
-      title: '提交中',
-    })
-    wx.cloud.callFunction({
-      name: "signEvent",
-      data: {
-        club_id: app.globalData.currentClub._id,
-        event_id: that.data.eventData._id,
-        student_id: app.globalData.stuNum,
-      },
-<<<<<<< Updated upstream
-      success(res){
-=======
-      success(res) {
->>>>>>> Stashed changes
         console.log(res)
         wx.hideLoading()
         wx.showToast({
@@ -185,7 +162,7 @@ Page({
   },
 
   //获取报名信息
-  getMyEnroll: function(){
+  getMyEnroll: function () {
     var that = this
 
     db.collection('event_member').where({
@@ -193,7 +170,7 @@ Page({
       student_id: _.eq(app.globalData.stuNum),
       event_id: _.eq(that.data.eventData._id)
     }).get({
-      success(res){
+      success(res) {
         console.log(res.data)
         that.setData({
           myEnrollData: res.data
