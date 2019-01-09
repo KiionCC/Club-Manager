@@ -10,7 +10,8 @@ exports.main = async (event, context) => {
   try {
     return await db.collection('club_member').doc(event.docid).update({
       data: {
-        job: "一般学生"
+        job: "社员",
+        level:1
       }
     })
   } catch (e) {
