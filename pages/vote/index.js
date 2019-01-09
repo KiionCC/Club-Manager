@@ -46,79 +46,7 @@ Page({
       },
       fail: console.error
     })
-
-    /*获取选项信息*/
-    db.collection('selections').where({
-      vote_id: _.eq(that.data.voteData._id)
-    }).get({
-      success(res1) {
-        that.setData({
-          options: res1.data
-        })
-        /*判断是否已经投过票了 */
-        /*获取已选选项信息*/
-        console.log(that.data.voteData._id)
-        console.log(app.globalData.stuNum)
-        db.collection('mem_selection').where({
-          vote_id: that.data.voteData._id,
-          student_id: app.globalData.stuNum,
-        }).get({
-          success(res2) {
-            console.log(res2)
-            if (res2.data.length > 0) {
-              console.log('get')
-              that.setData({
-                hadChosen: res2.data //将包括vote_id,selection_id和student_id的数组存进data里面
-              });
-              that.setData({
-                isVoted: true
-              })
-              console.log(hadChosen)
-              console.log(isVoted)
-            }
-          },
-          fail: console.error
-        })
-
-
-        /*获取选项最大值与百分比*/
-        var temp = that.data.options[0].num
-        for (var index in that.data.options) {
-          if (index.num > temp) {
-            temp = index.num
-          }
-        }
-        that.setData({
-          maxOption: temp
-        })
-        for (var i = 0; i < that.data.options.length; i++) {
-          var percent = 'options[' + i + '].percent'
-          var value = 'options[' + i + '].value'
-          that.setData({
-            [percent]: that.data.options[i].num / that.data.maxOption * 100,
-            [value]: i
-          })
-        }
-      }
-    })
-
-
-    /*判断投票是否过期 */
-    db.collection('vote').doc(that.data.voteData._id).get({
-      success(res) {
-        console.log(res)
-        if (res.data.state == true) {
-          if (res.data.deadline < new Date()) {
-            wx.cloud.callFunction({
-              name: 'closeVote',
-              data: {
-                vote_id: that.data.voteData._id,
-              },
-            })
-          }
-        }
-      }
-    })
+    that.refresh()
 
   },
 
@@ -232,33 +160,7 @@ Page({
                 icon: 'success',
                 duration: 1000
               })
-              db.collection('selections').where({
-                vote_id: _.eq(that.data.voteData._id)
-              }).get({
-                success(res) {
-                  that.setData({
-                    options: res.data
-                  })
-                  /*获取选项最大值与百分比*/
-                  var temp = that.data.options[0].num
-                  for (var index in that.data.options) {
-                    if (index.num > temp) {
-                      temp = index.num
-                    }
-                  }
-                  that.setData({
-                    maxOption: temp
-                  })
-                  for (var i = 0; i < that.data.options.length; i++) {
-                    var percent = 'options[' + i + '].percent'
-                    var value = 'options[' + i + '].value'
-                    that.setData({
-                      [percent]: that.data.options[i].num / that.data.maxOption * 100,
-                      [value]: i
-                    })
-                  }
-                }
-              })
+              that.refresh()
             }
           })
         }
@@ -275,25 +177,54 @@ Page({
       data: {
         hadChosen: that.data.hadChosen,//selections的num-1问题，需要selection_id
       },
-      complete: res => {
+      success: res => {
         console.log(res)
         that.setData({
-          isVoted: false
+          isVoted: false,
+          hadChosen:[]
         })
+        that.refresh()
       }
     })
+  },
+
+  refresh: function(){
+    var that = this
+    /*获取选项信息*/
     db.collection('selections').where({
       vote_id: _.eq(that.data.voteData._id)
     }).get({
-      success(res) {
+      success(res1) {
         that.setData({
-          options: res.data
+          options: res1.data
         })
+        /*判断是否已经投过票了 */
+        /*获取已选选项信息*/
+        db.collection('mem_selection').where({
+          vote_id: that.data.voteData._id,
+          student_id: app.globalData.stuNum,
+        }).get({
+          success(res2) {
+            console.log(res2)
+            if (res2.data.length > 0) {
+              that.setData({
+                hadChosen: res2.data //将包括vote_id,selection_id和student_id的数组存进data里面
+              });
+              that.setData({
+                isVoted: true
+              })
+            }
+          },
+          fail: console.error
+        })
+
         /*获取选项最大值与百分比*/
-        var temp = that.data.options[0].num
+        var temp = 0
         for (var index in that.data.options) {
-          if (index.num > temp) {
-            temp = index.num
+          console.log(index)
+          console.log(temp)
+          if (that.data.options[index].num > temp) {
+            temp = that.data.options[index].num
           }
         }
         that.setData({
@@ -306,6 +237,23 @@ Page({
             [percent]: that.data.options[i].num / that.data.maxOption * 100,
             [value]: i
           })
+        }
+      }
+    })
+
+    /*判断投票是否过期 */
+    db.collection('vote').doc(that.data.voteData._id).get({
+      success(res) {
+        console.log(res)
+        if (res.data.state == true) {
+          if (res.data.deadline < new Date()) {
+            wx.cloud.callFunction({
+              name: 'closeVote',
+              data: {
+                vote_id: that.data.voteData._id,
+              },
+            })
+          }
         }
       }
     })
