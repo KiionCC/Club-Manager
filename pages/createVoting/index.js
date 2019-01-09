@@ -32,6 +32,7 @@ Page({
   },
 
   onLoad: function(){
+    console.log(new Date())
     wx.setNavigationBarTitle({
       title: '发起投票'//页面标题为社团名
     })
@@ -209,8 +210,9 @@ Page({
           isSelection = false
         }
       }
-      var end_date = event.date + ' ' + event.time + ':00';
+      var end_date = that.data.date + ' ' + that.data.time + ':00';
       var deadline = new Date(end_date);
+      var timestamp=Date.parse(deadline)
       if(deadline<new Date()){
         isSelection=false
       }
@@ -228,7 +230,7 @@ Page({
               club_id: app.globalData.currentClub._id,
               introduction: that.data.introduction,
               student_id: app.globalData.stuNum,
-              deadline: deadline,
+              timestamp: timestamp,
               select_list: that.data.optionList,
               icon_id: '000',
             },
@@ -248,7 +250,7 @@ Page({
               club_id: app.globalData.currentClub._id,
               introduction: that.data.introduction,
               student_id: app.globalData.stuNum,
-              deadline: deadline,
+              timestamp: timestamp,
               select_list: that.data.optionList,
               icon_id: that.data.files[0],
             },
