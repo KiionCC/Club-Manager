@@ -22,7 +22,7 @@ Page({
     //功能
     memFunc: [
       { name: "查看成员" },
-      { name: "成员统计" }
+      { name: "成员统计", url: '../statistical/index' }
     ],
     adminFunc: [
       { name: "发起活动" }, 
