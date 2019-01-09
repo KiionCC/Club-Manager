@@ -45,12 +45,6 @@
           "text": "社团"
         },
         {
-          "selectedIconPath": "images/search_selected.png",
-          "iconPath": "images/search.png",
-          "pagePath": "pages/search/search",
-          "text": "搜索"
-        },
-        {
           "selectedIconPath": "images/Packman_selected.png",
           "iconPath": "images/Packman.png",
           "pagePath": "pages/person/person",
