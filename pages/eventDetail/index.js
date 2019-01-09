@@ -41,8 +41,11 @@ Page({
 
     var _signEndTime = new Date(that.data.eventData.signEndTime)
     var _beginTime = new Date(that.data.eventData.beginTime)
-    //过了签到时间但是没到活动开始时间，关闭签到按钮，eventState设为1
-    if (_signEndTime < new Date() && _beginTime > new Date()) {
+    var timestamp = Date.parse(_beginTime)
+    timestamp = timestamp-30*60*1000
+    var beginSignTime=new Date(timestamp)
+    //到了签到时间前半小时但是管理员还没点击结算按钮（活动未结束），打开签到按钮，eventState设为1
+    if (beginSignTime < new Date() && !that.data.eventData.isOver) {//刷新问题
       that.setData({
         eventState: 1
       })
