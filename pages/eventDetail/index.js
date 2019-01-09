@@ -145,6 +145,22 @@ Page({
     })
   },
 
+  //活动签到
+  sign: function () {
+    var that = this
+    wx.cloud.callFunction({
+      name: "signEvent",
+      data: {
+        club_id: app.globalData.currentClub._id,
+        event_id: that.data.eventData._id,
+        student_id: app.globalData.stuNum,
+      },
+      success(res) {
+        console.log(res)
+      }
+    })
+  },
+
   //获取报名信息
   getMyEnroll: function(){
     var that = this
