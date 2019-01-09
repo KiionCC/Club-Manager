@@ -157,6 +157,7 @@ Page({
       },
       success(res) {
         console.log(res)
+        that.getMyEnroll()
       }
     })
   },
