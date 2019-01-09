@@ -211,6 +211,9 @@ Page({
       }
       var end_date = event.date + ' ' + event.time + ':00';
       var deadline = new Date(end_date);
+      if(deadline<new Date()){
+        isSelection=false
+      }
       if(isSelection){
         /*符合提交要求*/
         console.log('符合提交要求')
