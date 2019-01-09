@@ -11,9 +11,12 @@ Page({
    */
   data: {
     tabs: ["活动","投票","功能","留言"],
-    activeIndex: 2,
+    activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
+
+    //活动
+    events: [],
 
     //投票
     votes:[],
@@ -35,9 +38,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this
     wx.setNavigationBarTitle({
       title: app.globalData.currentClub.name//页面标题为社团名
     })
+
+    that.getEvent()
   },
 
   /**
@@ -136,6 +142,9 @@ Page({
         fail: console.error
       })
     }
+    else if (that.data.activeIndex == 0){
+      that.getEvent()
+    }
   },
 
   /*跳转到投票页面*/
@@ -149,6 +158,38 @@ Page({
     
     wx.navigateTo({
       url: '../vote/index',
+    })
+  },
+
+  /*获取活动列表*/
+  getEvent: function(){
+    var that = this
+    wx.showLoading({
+      title: '加载中',
+    })
+    db.collection('event').where({
+      club_id: _.eq(app.globalData.currentClub._id)
+    }).orderBy('_id', 'desc').get({
+      success(res){
+        that.setData({
+          events: res.data
+        })
+        wx.hideLoading()
+      }
+    })
+  },
+
+  /*活动详情*/
+  eventDetail: function(e){
+    var that = this
+
+    /*获取点击活动*/
+    var id = e.currentTarget.dataset.index;
+    id = parseInt(id);
+    app.globalData.currentEvent = that.data.events[id];
+
+    wx.navigateTo({
+      url: '../eventDetail/index',
     })
   }
 })

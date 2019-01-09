@@ -8,6 +8,9 @@ Page({
    * 页面的初始数据 
    */
   data: {
+    name: "",
+    content: "",
+
     beginDate: "",
     beginTime: "",
     location: "",
@@ -18,6 +21,7 @@ Page({
     enrollDate: "2017-09-01",
     enrollTime: "12:01",
 
+    isSign: false,
     isPublic: true,
 
     files: []
@@ -87,6 +91,20 @@ Page({
 
   },
 
+  /*输入活动名*/
+  InputName: function (e) {
+    this.setData({
+      name: e.detail.value
+    })
+  },
+
+  /*输入活动简介*/
+  InputIntro: function (e) {
+    this.setData({
+      content: e.detail.value
+    })
+  },
+
   /*开始时间改变*/
   bindBeginTimeChange: function (e) {
     this.setData({
@@ -135,6 +153,20 @@ Page({
   bindEnrollDateChange: function (e) {
     this.setData({
       enrollDate: e.detail.value
+    })
+  },
+
+  /*开启签到*/
+  isSign: function (e) {
+    this.setData({
+      isSign: e.detail.value
+    })
+  },
+
+  /*公开*/
+  isPublic: function (e) {
+    this.setData({
+      isPublic: e.detail.value
     })
   },
 
