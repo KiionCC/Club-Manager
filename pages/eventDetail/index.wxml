@@ -30,7 +30,7 @@
   </view>
 
   <view class="weui-btn-area" wx:if="{{show}}">
-    <button class="weui-btn" type="primary" bindtap="enroll">报名</button>
+    <button class="weui-btn" type="primary" bindtap="enroll" disabled='{{myEnrollData.length > 0}}'>报名</button>
     <button class="weui-btn" type="primary" bindtap="sign">签到</button>
     <button class="weui-btn" type="warn" bindtap="finish">活动结算</button>
   </view>
