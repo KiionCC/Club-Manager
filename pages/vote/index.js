@@ -17,7 +17,7 @@ Page({
     maxOption: 0,
     isVoted: false,
     checkboxMax: 2,
-
+    voteOver: false,
     showVoteTips: false
   },
 
@@ -47,6 +47,12 @@ Page({
       fail: console.error
     })
     that.refresh()
+    var end_time=new Date(that.data.voteData.deadline)
+    if (end_time<new Date()){
+      that.setData({
+        voteOver: true
+      })
+    }
 
   },
 

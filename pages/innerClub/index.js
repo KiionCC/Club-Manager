@@ -21,7 +21,7 @@ Page({
 
     //功能
     memFunc: [
-      { name: "查看成员", icon: "member" },
+      { name: "查看成员", icon: "member", url: '../memberList/index' },
       { name: "成员统计", icon:"memberStatic", url: '../statistical/index' }
     ],
     adminFunc: [
