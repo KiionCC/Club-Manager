@@ -35,6 +35,12 @@ Page({
     wx.setNavigationBarTitle({
       title: '发起投票'//页面标题为社团名
     })
+
+    let now = new Date()
+    this.setData({
+      date: now.toLocaleDateString().replace(/\//g, "-"),
+      time: now.toTimeString().substr(0, 8)
+    })
   },
 
   /*输入投票标题*/
