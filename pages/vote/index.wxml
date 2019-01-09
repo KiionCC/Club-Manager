@@ -77,8 +77,8 @@
 
 
   <view class="weui-btn-area">
-    <button class="weui-btn" type="primary" bindtap="showTopTips" disabled="{{isVoted}}">投票</button>
-    <button class="weui-btn" type="warn" bindtap="cancelVote" hidden="{{!isVoted || !voteData.can_be_cancelled}}">取消投票</button>
+    <button class="weui-btn" type="primary" bindtap="showTopTips" disabled="{{isVoted}}" hidden="{{voteOver}}">投票</button>
+    <button class="weui-btn" type="warn" bindtap="cancelVote" hidden="{{!isVoted || !voteData.can_be_cancelled || voteOver}}">取消投票</button>
   </view>
 
 
