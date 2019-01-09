@@ -64,7 +64,7 @@
 
   <view class="weui-panel weui-panel_access" style="padding-bottom:20px;" hidden='{{!isVoted}}'>
     <block wx:for="{{options}}" wx:key="*this">
-      <view class="weui-panel__hd">{{item.selection_name}}（{{item.num}}票）</view>
+      <view class="weui-panel__hd" >{{item.selection_name}}（{{item.num}}票）</view>
       <view class="weui-panel__bd">
         <view class="weui-progress">
           <view class="weui-progress__bar">
