@@ -13,7 +13,8 @@
     "pages/handleJoin/index",
     "pages/createVoting/index",
     "pages/vote/index",
-    "pages/test/test"
+    "pages/test/test",
+    "pages/memberList/index"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
