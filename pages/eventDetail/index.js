@@ -10,7 +10,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    eventData: {}
+    eventData: {},
+    eventState:0,//活动状态：0为报名未截止活动未结束，1为报名截止活动未结束，2为报名截止活动结束
   },
 
   /**
@@ -26,6 +27,25 @@ Page({
     that.setData({
       eventData: app.globalData.currentEvent
     })
+
+    var _signEndTime = new Date(that.data.eventData.signEndTime)
+    var _beginTime = new Date(that.data.eventData.beginTime)
+    console.log(_beginTime)
+    console.log(_signEndTime)
+    console.log(new Date())
+    //过了签到时间但是没到活动开始时间，关闭签到按钮，eventState设为1
+    if (_signEndTime < new Date() && _beginTime > new Date()) {
+      that.setData({
+        eventState: 1
+      })
+    }
+
+    //过了签到时间和活动开始时间，关闭签到按钮，活动发起者打开结算按钮，eventState设为2
+    if (_beginTime < new Date()) {
+      that.setData({
+        eventState: 2
+      })
+    }
 
     //获取社团头像
     db.collection('club').doc(that.data.eventData.club_id).get({
