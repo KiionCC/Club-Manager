@@ -13,9 +13,14 @@
     "pages/handleJoin/index",
     "pages/createVoting/index",
     "pages/vote/index",
+<<<<<<< HEAD
     "pages/statistical/index",
     "pages/createEvent/index",
     "pages/eventDetail/index"
+=======
+    "pages/test/test",
+    "pages/memberList/index"
+>>>>>>> statistical-report
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
