@@ -134,6 +134,51 @@ Page({
       },
       success(res){
         console.log(res.result)
+        that.setData({
+          isEmpty: true
+        })
+        /*获取申请列表*/
+        wx.showLoading({
+          title: '加载中',
+        })
+        db.collection('mem_application').where({
+          club_id: _.eq(app.globalData.currentClub._id),
+        }).orderBy('_id', 'desc').get({
+          success(res) {
+            console.log(res.data)
+            if (res.data.length > 0) {
+              that.setData({
+                applications: res.data,
+                isEmpty: false
+              })
+              /*获取申请人信息*/
+              var stu_id = []
+              res.data.forEach(function (index) {
+                stu_id.push(index.student_id)
+              })
+              db.collection('student').where({
+                number: _.in(stu_id)
+              }).get({
+                success(res) {
+                  console.log(res.data)
+                  that.setData({
+                    applicants: res.data
+                  })
+                },
+                fail: console.error
+              })
+              wx.hideLoading();
+              console.log("获取社团列表成功");
+            }
+            else {
+              that.setData({
+                isEmpty: true
+              });
+              wx.hideLoading();
+            }
+          },
+          fail: console.error
+        })
       },
       fail: console.error
     })
@@ -156,6 +201,51 @@ Page({
       },
       success(res) {
         console.log(res.data)
+        that.setData({
+          isEmpty: true
+        })
+        /*获取申请列表*/
+        wx.showLoading({
+          title: '加载中',
+        })
+        db.collection('mem_application').where({
+          club_id: _.eq(app.globalData.currentClub._id),
+        }).orderBy('_id', 'desc').get({
+          success(res) {
+            console.log(res.data)
+            if (res.data.length > 0) {
+              that.setData({
+                applications: res.data,
+                isEmpty: false
+              })
+              /*获取申请人信息*/
+              var stu_id = []
+              res.data.forEach(function (index) {
+                stu_id.push(index.student_id)
+              })
+              db.collection('student').where({
+                number: _.in(stu_id)
+              }).get({
+                success(res) {
+                  console.log(res.data)
+                  that.setData({
+                    applicants: res.data
+                  })
+                },
+                fail: console.error
+              })
+              wx.hideLoading();
+              console.log("获取社团列表成功");
+            }
+            else {
+              that.setData({
+                isEmpty: true
+              });
+              wx.hideLoading();
+            }
+          },
+          fail: console.error
+        })
       },
       fail: console.error
     })
