@@ -10,7 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tabs: ["活动","投票","功能","留言"],
+    tabs: ["活动","投票","功能"],
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
@@ -174,6 +174,12 @@ Page({
         that.setData({
           events: res.data
         })
+        for (var i = 0; i < that.data.events.length; i++) {
+          var beginTime = 'events[' + i + '].beginTime'
+          that.setData({
+            [beginTime]: that.data.events[i].beginTime.toLocaleDateString().replace(/\//g, "-") + " " + that.data.events[i].beginTime.toTimeString().substr(0, 8)
+          })
+        }
         wx.hideLoading()
       }
     })
