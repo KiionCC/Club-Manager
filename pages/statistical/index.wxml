@@ -1,0 +1,7 @@
+<view class="container">
+    <canvas id="sex" canvas-id="ringCanvas" class="canvas" style="height:300px" bindtouchstart="touchHandler"></canvas>
+    <view id="pro_tap">籍贯分布</view>
+    <canvas id="pro" canvas-id="pieCanvas" class="canvas" style="height:300px" bindtouchstart="touchHandler"></canvas>
+    <view id="age_tap">年龄分布</view>
+    <canvas id="age" canvas-id="columnCanvas" class="canvas" bindtouchstart="touchHandler"  style="height:300px" ></canvas>
+</view>

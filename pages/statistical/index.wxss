@@ -1,0 +1,21 @@
+/* pages/test/test.wxss */
+#sex {
+  position: absolute;
+  top: 0px;
+}
+#pro{
+  position: absolute;
+  top: 290px;
+}
+#pro_tap{
+  position: absolute;
+  top: 590px;
+}
+#age {
+  position: absolute;
+  top: 650px;
+}
+#age_tap {
+  position: absolute;
+  top: 850px;
+}
