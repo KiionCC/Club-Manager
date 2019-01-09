@@ -4,7 +4,7 @@
     <view class="page__desc">可以设置是否公开活动、活动报名时间与签到时间以协助最终结算</view>
   </view>
   <view class="page__bd">
-    <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">请完整填写除图片外所有信息</view>
+    <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">请正确填写除图片外所有信息</view>
 
     <view class="weui-cells__title">活动标题</view>
     <view class="weui-cells">
@@ -33,7 +33,7 @@
           <view class="weui-label">活动开始日期</view>
         </view>
         <view class="weui-cell__bd">
-          <picker mode="date" value="{{beginDdate}}" start="2015-09-01" end="2117-09-01" bindchange="bindBeginDateChange">
+          <picker mode="date" value="{{beginDate}}" start="2015-09-01" end="2117-09-01" bindchange="bindBeginDateChange">
             <view class="weui-select weui-select_in-select-after">{{beginDate}}</view>
           </picker>
         </view>
@@ -43,7 +43,7 @@
           <view class="weui-label">活动开始时间</view>
         </view>
         <view class="weui-cell__bd">
-          <picker mode="time" value="{{beginTime}}" start="09:01" end="21:01" bindchange="bindBeginTimeChange">
+          <picker mode="time" value="{{beginTime}}" start="00:00" end="23:59" bindchange="bindBeginTimeChange">
             <view class="weui-select weui-select_in-select-after">{{beginTime}}</view>
           </picker>
         </view>
@@ -94,6 +94,12 @@
           </view>
         </view>
       </block>
+      <view class="weui-cell weui-cell_switch">
+        <view class="weui-cell__bd">开启签到</view>
+        <view class="weui-cell__ft">
+          <switch unchecked bindchange="isSign" />
+        </view>
+      </view>
       <view class="weui-cell weui-cell_switch">
         <view class="weui-cell__bd">公开活动</view>
         <view class="weui-cell__ft">

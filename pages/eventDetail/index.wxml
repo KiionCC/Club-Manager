@@ -19,8 +19,11 @@
     <view class="weui-panel__bd">
       <view class="weui-media-box weui-media-box_text">
         <view class="weui-media-box__title weui-media-box__title_in-text" style="font-size:22px">{{eventData.name}}</view>
-        <view class="weui-media-box__desc">活动时间：{{eventData.beginTime}}</view>
+        <view class="weui-media-box__desc">活动时间：{{eventData.signEndTime}}</view>
         <view class="weui-media-box__desc">活动地点：{{eventData.location}}</view>
+        <block wx:if="eventData.isEnroll">
+          <view class="weui-media-box__desc">报名截止时间：{{eventData.beginTime}}</view>
+        </block>
         <view class="weui-media-box__desc">活动内容简介：{{eventData.content}}</view>
         <view class="weui-media-box__desc" wx:if="{{eventData.image}}">
           <image src="{{eventData.image}}"></image>
@@ -29,9 +32,17 @@
     </view>
   </view>
 
-  <view class="weui-btn-area">
-    <button class="weui-btn" type="primary" bindtap="showTopTips" disabled="{{isVoted}}">投票</button>
-    <button class="weui-btn" type="warn" bindtap="showTopTips" hidden="{{!isVoted || !voteData.can_be_cancelled}}">取消投票</button>
+  <view class="weui-cells weui-cells_after-title" style="margin:10px">
+    <navigator url="../enrollList/index" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__bd">查看报名成员</view>
+      <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+  </view>
+
+  <view class="weui-btn-area" wx:if="{{show}}">
+    <button class="weui-btn" type="primary" bindtap="enroll" disabled='{{eventState!=0 || myEnrollData.length > 0}}' hidden="{{!eventData.isEnroll}}">报名</button>
+    <button class="weui-btn" type="primary" bindtap="sign" disabled='{{eventState!=1 || myEnrollData[0].isSign}}'  hidden="{{!eventData.isSign}}">签到</button>
+    <button class="weui-btn" type="warn" bindtap="finish" disabled='{{eventState!=2 ||eventData.isOver}}'  hidden="{{ isManager!=true}}">活动结算</button>
   </view>
 
 </view>

@@ -16,7 +16,8 @@
       "pages/statistical/index",
       "pages/createEvent/index",
       "pages/eventDetail/index",
-      "pages/memberList/index"
+      "pages/memberList/index",
+      "pages/enrollList/index"
     ],
     "window": {
       "backgroundColor": "#F6F6F6",
@@ -42,12 +43,6 @@
           "iconPath": "images/Binders.png",
           "pagePath": "pages/clubs/clubs",
           "text": "社团"
-        },
-        {
-          "selectedIconPath": "images/search_selected.png",
-          "iconPath": "images/search.png",
-          "pagePath": "pages/search/search",
-          "text": "搜索"
         },
         {
           "selectedIconPath": "images/Packman_selected.png",

@@ -1,3 +1,6 @@
 .button[type=primary]{
   color: #00cccc
 }
+.weui-select_in-select-after {
+    text-align: left;
+}

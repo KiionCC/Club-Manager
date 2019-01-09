@@ -19,6 +19,11 @@ Page({
 
     sex: ["男","女"],
     sexIndex: 0,
+
+    pro: ["北京市", "天津市", "上海市", "重庆市", "河北省", "山西省", "辽宁省", "吉林省", "黑龙江省", "江苏省", "浙江省", "安徽省", "福建省", "江西省", "山东省", "河南省", "湖北省", "湖南省", "广东省", "海南省", "四川省", "贵州省", "云南省", "陕西省", "甘肃省", "青海省", "台湾省", "内蒙古自治区", "广西壮族自治区", "西藏自治区", "宁夏回族自治区", "新疆维吾尔自治区", "香港特别行政区", "澳门特别行政区"],
+    proIndex: 0,
+
+    birthday: "1998-12-8"
   },
 
   /**
@@ -117,6 +122,22 @@ Page({
     })
   },
 
+  /*改变籍贯*/
+  bindProChange: function (e) {
+    console.log('picker pro发生选择改变，携带值为', e.detail.value);
+
+    this.setData({
+      proIndex: e.detail.value
+    })
+  },
+
+  /*生日改变*/
+  bindDateChange: function (e) {
+    this.setData({
+      birthday: e.detail.value
+    })
+  },
+
   /*确认提交*/
   showTopTips: function (e) {
     var that = this;
@@ -146,7 +167,9 @@ Page({
           phone_number: that.data.student.phoneNum,
           sex: that.data.sex[that.data.sexIndex],
           password: "ok",
-          avatarurl: app.globalData.userInfo.avatarUrl
+          avatarurl: app.globalData.userInfo.avatarUrl,
+          birthday: that.data.birthday,
+          hometown: that.data.pro[that.data.proIndex]
         },
         complete: res => {
           console.log(res)

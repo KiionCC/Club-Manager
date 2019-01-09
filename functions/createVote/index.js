@@ -46,11 +46,6 @@ exports.main = async(event, context) => {
       }
     } 
     else{ //选择了投票图片
-      file=await cloud.uploadFile({
-        cloudPath: 'VoteImage/' + event.name + event.student_num + event.end_time + '.jpg', // 上传至云端的路径
-        fileContent: event.icon_id,
-      })
-      file_id=file.fileID
       await db.collection('vote').add({  // data 字段表示需新增的 JSON 数据
         data: {
           can_be_cancelled: event.can_be_cancelled,
@@ -61,7 +56,7 @@ exports.main = async(event, context) => {
           introduction: event.introduction,
           student_id: event.student_id,
           deadline: deadline,
-          image: file_id,
+          image: event.icon_id,
           state:true,
           },
         })

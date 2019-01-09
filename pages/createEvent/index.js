@@ -8,18 +8,22 @@ Page({
    * 页面的初始数据 
    */
   data: {
-    beginDate: "",
-    beginTime: "",
+    name: "",
+    content: "",
+
+    beginDate: "2017-09-01",
+    beginTime: "12:01",
     location: "",
     level: [1,2,3],
     levelIndex: 0,
 
     isEnroll: false,
-    enrollDate: "2017-09-01",
-    enrollTime: "12:01",
-
+    isSign: false,
     isPublic: true,
+    enrollDate: "",
+    enrollTime: "",
 
+    image:"",
     files: []
   },
 
@@ -27,10 +31,10 @@ Page({
    * 生命周期函数--监听页面加载 
    */
   onLoad: function (options) {
-    var nowTime = new Date()
+    let now = new Date()
     this.setData({
-      beginDate: nowTime.toDateString(),
-      beginTime: nowTime.toLocaleTimeString()
+      beginDate: now.toLocaleDateString().replace(/\//g, "-"),
+      beginTime: now.toTimeString().substr(0, 8)
     })
 
     wx.setNavigationBarTitle({
@@ -38,53 +42,21 @@ Page({
     })
   },
 
-  /** 
-   * 生命周期函数--监听页面初次渲染完成 
-   */
-  onReady: function () {
 
+
+
+  /*输入活动名*/
+  InputName: function (e) {
+    this.setData({
+      name: e.detail.value
+    })
   },
 
-  /** 
-   * 生命周期函数--监听页面显示 
-   */
-  onShow: function () {
-
-  },
-
-  /** 
-   * 生命周期函数--监听页面隐藏 
-   */
-  onHide: function () {
-
-  },
-
-  /** 
-   * 生命周期函数--监听页面卸载 
-   */
-  onUnload: function () {
-
-  },
-
-  /** 
-   * 页面相关事件处理函数--监听用户下拉动作 
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /** 
-   * 页面上拉触底事件的处理函数 
-   */
-  onReachBottom: function () {
-
-  },
-
-  /** 
-   * 用户点击右上角分享 
-   */
-  onShareAppMessage: function () {
-
+  /*输入活动简介*/
+  InputIntro: function (e) {
+    this.setData({
+      content: e.detail.value
+    })
   },
 
   /*开始时间改变*/
@@ -138,6 +110,20 @@ Page({
     })
   },
 
+  /*开启签到*/
+  isSign: function (e) {
+    this.setData({
+      isSign: e.detail.value
+    })
+  },
+
+  /*公开*/
+  isPublic: function (e) {
+    this.setData({
+      isPublic: e.detail.value
+    })
+  },
+
   /*选择图片*/
   chooseImage: function (e) {
     var that = this;
@@ -174,5 +160,142 @@ Page({
         }
       }
     })
+  },
+
+  /*点击提交*/
+  showTopTips: function () {
+    var that = this
+    if (that.data.name && that.data.content && that.data.location) {
+      var isSelection = true
+      var begin_date = that.data.beginDate + ' ' + that.data.beginTime + ':00';
+      var beginline = new Date(begin_date);
+      var timestamp = Date.parse(beginline)
+      if (that.data.isEnroll == true){
+        if (that.data.enrollDate == "" || that.data.enrollTime == "") {
+          isSelection = false
+        }
+      }
+
+      var timestamp2 = ""
+      if (that.data.enrollDate != "" && that.data.enrollTime != "") {
+        var enroll_date = that.data.enrollDate + ' ' + that.data.enrollTime + ':00';
+        var enrollline = new Date(enroll_date);
+        timestamp2 = Date.parse(enrollline)
+        if (enrollline < new Date() || enrollline > beginline) {
+          isSelection = false
+        }
+      }
+      if (beginline < new Date()) {
+        isSelection = false
+      }
+      if (isSelection) {
+        /*符合提交要求*/
+        console.log('符合提交要求')
+        wx.showLoading({
+          title: '提交中',
+        })
+        if (!that.data.files.length) {
+          wx.cloud.callFunction({
+            name: 'createEvent',
+            data: {
+              club_id: app.globalData.currentClub._id,
+              club_name: app.globalData.currentClub.name,
+              name: that.data.name,
+              content: that.data.content,
+              level: that.data.levelIndex+1,
+              location: that.data.location,
+              timestamp: timestamp,
+              timestamp2: timestamp2,
+              isPublic: that.data.isPublic,
+              isSign: that.data.isSign,
+              isEnroll: that.data.isEnroll,
+            },
+            complete: res => {
+              console.log(res)
+              wx.hideLoading()
+              wx.showToast({
+                title: '发布成功',
+                icon: "success",
+                duration: 1000
+              })
+              setTimeout(function () {
+                wx.navigateBack({
+
+                })
+              }, 1000
+              )
+            }
+          })
+        }
+        else {
+          wx.cloud.uploadFile({
+            cloudPath: 'EventImage/' + that.data.name + "_" +timestamp + '.jpg', // 上传至云端的路径
+            filePath: that.data.files[0], // 小程序临时文件路径
+            success: res => {
+              // 返回文件 ID
+              //console.log(res)
+              that.setData({
+                image: res.fileID
+              })
+              wx.cloud.callFunction({
+                name: 'createEvent',
+                data: {
+                  club_id: app.globalData.currentClub._id,
+                  club_name: app.globalData.currentClub.name,
+                  name: that.data.name,
+                  content: that.data.content,
+                  level: that.data.levelIndex + 1,
+                  location: that.data.location,
+                  timestamp: timestamp,
+                  timestamp2: timestamp2,
+                  isPublic: that.data.isPublic,
+                  isSign: that.data.isSign,
+                  isEnroll: that.data.isEnroll,
+                  image: that.data.image
+                },
+                complete: res => {
+                  console.log(res)
+                  wx.hideLoading()
+                  wx.showToast({
+                    title: '发布成功',
+                    icon: "success",
+                    duration: 1000
+                  })
+                  setTimeout(function(){
+                    wx.navigateBack({
+
+                    })
+                  }, 1000
+                  )
+
+                }
+              })
+            },
+            fail: console.error
+          })
+        }
+      }
+      else {
+        this.setData({
+          showTopTips: true
+        });
+        setTimeout(function () {
+          that.setData({
+            showTopTips: false
+          });
+        }, 3000);
+      }
+    }
+    else {
+      this.setData({
+        showTopTips: true
+      });
+      setTimeout(function () {
+        that.setData({
+          showTopTips: false
+        });
+      }, 3000);
+    }
+
   },
 })
