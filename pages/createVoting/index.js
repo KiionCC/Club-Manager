@@ -228,6 +228,9 @@ Page({
       }
       if (isSelection) {
         /*符合提交要求*/
+        wx.showLoading({
+          title: '提交中',
+        })
         console.log('符合提交要求')
         if (!that.data.files.length) {
           wx.cloud.callFunction({
@@ -246,6 +249,18 @@ Page({
             },
             complete: res => {
               console.log(res)
+              wx.hideLoading()
+              wx.showToast({
+                title: '发布成功',
+                icon: "success",
+                duration: 1000
+              })
+              setTimeout(function () {
+                wx.navigateBack({
+
+                })
+              }, 1000
+              )
             }
           })
         } else {
@@ -277,6 +292,18 @@ Page({
                 },
                 complete: res => {
                   console.log(res)
+                  wx.hideLoading()
+                  wx.showToast({
+                    title: '发布成功',
+                    icon: "success",
+                    duration: 1000
+                  })
+                  setTimeout(function () {
+                    wx.navigateBack({
+
+                    })
+                  }, 1000
+                  )
                 }
               })
             }

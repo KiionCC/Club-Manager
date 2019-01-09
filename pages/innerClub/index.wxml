@@ -11,7 +11,7 @@
       </view>
       <view class="weui-tab__panel">
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-          <view wx:if="{{!isEmpty}}">
+          
             <block wx:for="{{events}}" wx:key="*this">
               <view class="weui-panel weui-panel_access">
                 <view class="weui-panel__bd">
@@ -26,10 +26,7 @@
                 </view>
               </view>
             </block>
-          </view>
-          <view wx:else>
-            <text></text>
-          </view>
+          
         </view>
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
           <view wx:if="{{isVote}}">
