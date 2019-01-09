@@ -24,7 +24,8 @@ exports.main = async (event, context) => {
         data: {
           name: tmp1.data.name,
           introduction: tmp1.data.introduction,
-          icon_id: tmp1.data.icon_id
+          icon_id: tmp1.data.icon_id,
+          point: 0
         }
       })
       //添加社长
