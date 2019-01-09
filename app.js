@@ -39,6 +39,7 @@ App({
     stuNum: 0,
     name: "",
     currentClub: "",
-    currentVote: {}
+    currentVote: {},
+    currentEvent: {}
   }
 })
