@@ -30,7 +30,9 @@ exports.main = async (event, context) => {
         phone_number: event.phone_number,
         sex: event.sex,
         openid: wxContext.OPENID,
-        avatarurl: event.avatarurl
+        avatarurl: event.avatarurl,
+        birthday: event.birthday,
+        hometown: event.hometown
       }
     })
     return 'ok'
