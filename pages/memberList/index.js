@@ -23,6 +23,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: '加载中',
+    })
     wx.setNavigationBarTitle({
       title: '成员列表'
     })
@@ -60,6 +63,12 @@ Page({
               })
             }
           })
+        })
+        wx.hideLoading()
+        wx.showToast({
+          title: '加载完成',
+          icon: 'success',
+          duration: 2000
         })
       }
     })
@@ -109,6 +118,9 @@ Page({
           if (!res.cancel) {
             console.log(res.tapIndex)
             if (res.tapIndex==0){//设为代表队
+              wx.showLoading({
+                title: '设置中',
+              })
               wx.cloud.callFunction({
                 // 云函数名称
                 name: 'manageMembers',
@@ -119,11 +131,48 @@ Page({
                 },
                 success(res) {
                   console.log('成功：', that.data.selected)
+                  db.collection('club_member').where({
+                    club_id: _.eq(app.globalData.currentClub._id)
+                  }).get({
+                    success(res) {
+                      var objs = []
+                      res.data.forEach(function (index) {
+                        db.collection('student').where({
+                          number: _.eq(index.student_id)
+                        }).get({
+                          success(res) {
+                            var obj = index
+                            obj['name'] = res.data[0].name
+                            obj['avatarurl'] = res.data[0].avatarurl
+                            objs.push(obj)
+                            that.setData({
+                              club: app.globalData.currentClub.name,
+                              members: objs,
+                            })
+                          }
+                        })
+                      })
+                      wx.hideLoading()
+                      wx.showToast({
+                        title: '设置成功',
+                        icon: 'success',
+                        duration: 1000
+                      })
+                    }
+                  })
                 },
                 fail: console.error
               })
+              that.setData({
+                isSelecting: false,
+                buttonText: "选择"
+              })
+              
             }
             else if (res.tapIndex == 1){//取消代表队
+              wx.showLoading({
+                title: '设置中',
+              })
               wx.cloud.callFunction({
                 // 云函数名称
                 name: 'manageMembers',
@@ -134,11 +183,47 @@ Page({
                 },
                 success(res) {
                   console.log('成功：', that.data.selected)
+                  db.collection('club_member').where({
+                    club_id: _.eq(app.globalData.currentClub._id)
+                  }).get({
+                    success(res) {
+                      var objs = []
+                      res.data.forEach(function (index) {
+                        db.collection('student').where({
+                          number: _.eq(index.student_id)
+                        }).get({
+                          success(res) {
+                            var obj = index
+                            obj['name'] = res.data[0].name
+                            obj['avatarurl'] = res.data[0].avatarurl
+                            objs.push(obj)
+                            that.setData({
+                              club: app.globalData.currentClub.name,
+                              members: objs,
+                            })
+                          }
+                        })
+                      })
+                      wx.hideLoading()
+                      wx.showToast({
+                        title: '设置成功',
+                        icon: 'success',
+                        duration: 1000
+                      })
+                    }
+                  })
                 },
                 fail: console.error
               })
+              that.setData({
+                isSelecting: false,
+                buttonText: "选择"
+              })
             }
             else if (res.tapIndex == 2) {//转移社长
+              wx.showLoading({
+                title: '设置中',
+              })
               wx.cloud.callFunction({
                 // 云函数名称
                 name: 'transferPersident',
@@ -149,11 +234,47 @@ Page({
                 },
                 success(res) {
                   console.log('成功：', that.data.selected)
+                  db.collection('club_member').where({
+                    club_id: _.eq(app.globalData.currentClub._id)
+                  }).get({
+                    success(res) {
+                      var objs = []
+                      res.data.forEach(function (index) {
+                        db.collection('student').where({
+                          number: _.eq(index.student_id)
+                        }).get({
+                          success(res) {
+                            var obj = index
+                            obj['name'] = res.data[0].name
+                            obj['avatarurl'] = res.data[0].avatarurl
+                            objs.push(obj)
+                            that.setData({
+                              club: app.globalData.currentClub.name,
+                              members: objs,
+                            })
+                          }
+                        })
+                      })
+                      wx.hideLoading()
+                      wx.showToast({
+                        title: '设置成功',
+                        icon: 'success',
+                        duration: 1000
+                      })
+                    }
+                  })
                 },
                 fail: console.error
               })
+              that.setData({
+                isSelecting: false,
+                buttonText: "选择"
+              })
             }
             else if (res.tapIndex == 3) {//设为管理员
+              wx.showLoading({
+                title: '设置中',
+              })
               wx.cloud.callFunction({
                 // 云函数名称
                 name: 'manageMembers',
@@ -164,11 +285,47 @@ Page({
                 },
                 success(res) {
                   console.log('成功：', that.data.selected)
+                  db.collection('club_member').where({
+                    club_id: _.eq(app.globalData.currentClub._id)
+                  }).get({
+                    success(res) {
+                      var objs = []
+                      res.data.forEach(function (index) {
+                        db.collection('student').where({
+                          number: _.eq(index.student_id)
+                        }).get({
+                          success(res) {
+                            var obj = index
+                            obj['name'] = res.data[0].name
+                            obj['avatarurl'] = res.data[0].avatarurl
+                            objs.push(obj)
+                            that.setData({
+                              club: app.globalData.currentClub.name,
+                              members: objs,
+                            })
+                          }
+                        })
+                      })
+                      wx.hideLoading()
+                      wx.showToast({
+                        title: '设置成功',
+                        icon: 'success',
+                        duration: 1000
+                      })
+                    }
+                  })
                 },
                 fail: console.error
               })
+              that.setData({
+                isSelecting: false,
+                buttonText: "选择"
+              })
             }
             else if (res.tapIndex == 4) {//取消管理员
+              wx.showLoading({
+                title: '设置中',
+              })
               wx.cloud.callFunction({
                 // 云函数名称
                 name: 'cancelManager',
@@ -179,11 +336,47 @@ Page({
                 },
                 success(res) {
                   console.log('成功：', that.data.selected)
+                  db.collection('club_member').where({
+                    club_id: _.eq(app.globalData.currentClub._id)
+                  }).get({
+                    success(res) {
+                      var objs = []
+                      res.data.forEach(function (index) {
+                        db.collection('student').where({
+                          number: _.eq(index.student_id)
+                        }).get({
+                          success(res) {
+                            var obj = index
+                            obj['name'] = res.data[0].name
+                            obj['avatarurl'] = res.data[0].avatarurl
+                            objs.push(obj)
+                            that.setData({
+                              club: app.globalData.currentClub.name,
+                              members: objs,
+                            })
+                          }
+                        })
+                      })
+                      wx.hideLoading()
+                      wx.showToast({
+                        title: '设置成功',
+                        icon: 'success',
+                        duration: 1000
+                      })
+                    }
+                  })
                 },
                 fail: console.error
               })
+              that.setData({
+                isSelecting: false,
+                buttonText: "选择"
+              })
             }
             else if (res.tapIndex == 5) {//删除成员
+              wx.showLoading({
+                title: '设置中',
+              })
               wx.cloud.callFunction({
                 // 云函数名称
                 name: 'removeMember',
@@ -194,8 +387,41 @@ Page({
                 },
                 success(res) {
                   console.log('成功：', that.data.selected)
+                  db.collection('club_member').where({
+                    club_id: _.eq(app.globalData.currentClub._id)
+                  }).get({
+                    success(res) {
+                      var objs = []
+                      res.data.forEach(function (index) {
+                        db.collection('student').where({
+                          number: _.eq(index.student_id)
+                        }).get({
+                          success(res) {
+                            var obj = index
+                            obj['name'] = res.data[0].name
+                            obj['avatarurl'] = res.data[0].avatarurl
+                            objs.push(obj)
+                            that.setData({
+                              club: app.globalData.currentClub.name,
+                              members: objs,
+                            })
+                          }
+                        })
+                      })
+                      wx.hideLoading()
+                      wx.showToast({
+                        title: '设置成功',
+                        icon: 'success',
+                        duration: 1000
+                      })
+                    }
+                  })
                 },
                 fail: console.error
+              })
+              that.setData({
+                isSelecting: false,
+                buttonText: "选择"
               })
             }
           }
