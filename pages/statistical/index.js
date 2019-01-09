@@ -26,10 +26,11 @@ Page({
     that.setData({
       club_id: app.globalData.currentClub._id
     })
-    var windowWidth = 320;
+    var windowWidth=0
     try {
       var res = wx.getSystemInfoSync();
       windowWidth = res.windowWidth;
+      console.log(windowWidth)
     } catch (e) {
       console.error('getSystemInfoSync failed!');
     }
