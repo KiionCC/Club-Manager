@@ -21,13 +21,13 @@ Page({
 
     //功能
     memFunc: [
-      { name: "查看成员" },
-      { name: "成员统计", url: '../statistical/index' }
+      { name: "查看成员", icon: "member" },
+      { name: "成员统计", icon:"memberStatic", url: '../statistical/index' }
     ],
     adminFunc: [
-      { name: "发起活动" }, 
-      { name: "发起投票", url:'../createVoting/index' }, 
-      { name:"处理申请", url:'../handleJoin/index' },
+      { name: "发起活动", icon:"releaseEvent" }, 
+      { name: "发起投票", icon: "releaseVote", url:'../createVoting/index' }, 
+      { name: "处理申请", icon: "handleAppli",url:'../handleJoin/index' },
     ],
   },
 
