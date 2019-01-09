@@ -30,9 +30,9 @@
   </view>
 
   <view class="weui-btn-area" wx:if="{{show}}">
-    <button class="weui-btn" type="primary" bindtap="enroll" disabled='{{myEnrollData.length > 0}}'>报名</button>
-    <button class="weui-btn" type="primary" bindtap="sign" disabled='{{myEnrollData[0].isSign}}'>签到</button>
-    <button class="weui-btn" type="warn" bindtap="finish">活动结算</button>
+    <button class="weui-btn" type="primary" bindtap="enroll" disabled='{{myEnrollData.length > 0 || eventState!=0}}'>报名</button>
+    <button class="weui-btn" type="primary" bindtap="sign" disabled='{{myEnrollData[0].isSign || eventState!=1}}'>签到</button>
+    <button class="weui-btn" type="warn" bindtap="finish" disabled='{{eventData.isOver || eventState!=2 || isManager!=true}}'>活动结算</button>
   </view>
 
 </view>
