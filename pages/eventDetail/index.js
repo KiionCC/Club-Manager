@@ -148,6 +148,9 @@ Page({
   //活动签到
   sign: function () {
     var that = this
+    wx.showLoading({
+      title: '签到中',
+    })
     wx.cloud.callFunction({
       name: "signEvent",
       data: {
@@ -157,6 +160,12 @@ Page({
       },
       success(res) {
         console.log(res)
+        wx.hideLoading()
+        wx.showToast({
+          title: '签到成功',
+          icon: 'success',
+          duration: 1000
+        })
         that.getMyEnroll()
       }
     })
