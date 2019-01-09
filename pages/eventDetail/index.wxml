@@ -29,9 +29,10 @@
     </view>
   </view>
 
-  <view class="weui-btn-area">
-    <button class="weui-btn" type="primary" bindtap="showTopTips" disabled="{{isVoted}}">投票</button>
-    <button class="weui-btn" type="warn" bindtap="showTopTips" hidden="{{!isVoted || !voteData.can_be_cancelled}}">取消投票</button>
+  <view class="weui-btn-area" wx:if="{{show}}">
+    <button class="weui-btn" type="primary" bindtap="showTopTips">报名</button>
+    <button class="weui-btn" type="primary" bindtap="showTopTips">签到</button>
+    <button class="weui-btn" type="warn" bindtap="showTopTips">活动结算</button>
   </view>
 
 </view>

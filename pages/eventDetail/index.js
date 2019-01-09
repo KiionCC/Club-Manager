@@ -12,6 +12,8 @@ Page({
   data: {
     eventData: {},
     eventState:0,//活动状态：0为报名未截止活动未结束，1为报名截止活动未结束，2为报名截止活动结束
+
+    show: false
   },
 
   /**
@@ -27,6 +29,13 @@ Page({
     that.setData({
       eventData: app.globalData.currentEvent
     })
+
+    //比对社团信息
+    if(app.globalData.currentEvent.club_id == app.globalData.currentClub._id){
+      that.setData({
+        show: true
+      })
+    }
 
     var _signEndTime = new Date(that.data.eventData.signEndTime)
     var _beginTime = new Date(that.data.eventData.beginTime)
