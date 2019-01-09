@@ -34,7 +34,9 @@ Page({
     let now = new Date()
     this.setData({
       beginDate: now.toLocaleDateString().replace(/\//g, "-"),
-      beginTime: now.toTimeString().substr(0, 8)
+      beginTime: now.toTimeString().substr(0, 8),
+      enrollDate: now.toLocaleDateString().replace(/\//g, "-"),
+      enrollTime: now.toTimeString().substr(0, 8),
     })
 
     wx.setNavigationBarTitle({
