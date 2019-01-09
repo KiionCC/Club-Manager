@@ -1,5 +1,5 @@
 {
-  "pages":[
+  "pages": [
     "pages/event/event",
     "pages/person/person",
     "pages/clubs/clubs",
@@ -15,12 +15,12 @@
     "pages/vote/index",
     "pages/createEvent/index"
   ],
-  "window":{
+  "window": {
     "backgroundColor": "#F6F6F6",
-    "backgroundTextStyle":"light",
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#00CCCC",
     "navigationBarTitleText": "TJClubs",
-    "navigationBarTextStyle":"white"
+    "navigationBarTextStyle": "white"
   },
   "tabBar": {
     "color": "#2c2c2c",

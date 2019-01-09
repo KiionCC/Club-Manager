@@ -48,6 +48,24 @@
           </picker>
         </view>
       </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">地点</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" placeholder="请输入地点" bindinput="InputLocation" />
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_select">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">积分</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <picker bindchange="bindCountryChange" value="{{levelIndex}}" range="{{level}}">
+                        <view class="weui-select weui-select_in-select-after">{{level[levelIndex]}}</view>
+                    </picker>
+                </view>
+            </view>
       <view class="weui-cell weui-cell_switch">
         <view class="weui-cell__bd">开启报名</view>
         <view class="weui-cell__ft">

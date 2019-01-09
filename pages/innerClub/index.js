@@ -10,52 +10,66 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tabs: ["活动","投票","功能","留言"],
+    tabs: ["活动", "投票", "功能", "留言"],
     activeIndex: 2,
     sliderOffset: 0,
     sliderLeft: 0,
 
     //投票
-    votes:[],
+    votes: [],
     isVote: false,
 
+    //留言
+    messages: [],
+
     //功能
-    memFunc: [
-      { name: "查看成员" },
-      { name: "成员统计" }
+    memFunc: [{
+        name: "查看成员",
+      },
+      {
+        name: "成员统计"
+      }
     ],
-    adminFunc: [
-      { name: "发起活动", url:'../createEvent/index' }, 
-      { name: "发起投票", url:'../createVoting/index' }, 
-      { name:"处理申请", url:'../handleJoin/index' },
+    adminFunc: [{
+        name: "发起活动",
+        url: '../createEvent/index'
+      },
+      {
+        name: "发起投票",
+        url: '../createVoting/index'
+      },
+      {
+        name: "处理申请",
+        url: '../handleJoin/index'
+      },
     ],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     wx.setNavigationBarTitle({
-      title: app.globalData.currentClub.name//页面标题为社团名
+      title: app.globalData.currentClub.name //页面标题为社团名
     })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-    
+  onReady: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     var that = this;
 
     /*初始化TAB导航栏信息*/
     wx.getSystemInfo({
-      success: function (res) {
+      success: function(res) {
         that.setData({
           sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
           sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
@@ -67,40 +81,40 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-    
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-    
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-    
+  onPullDownRefresh: function() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-    
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-    
+  onShareAppMessage: function() {
+
   },
 
   /*滑块*/
-  tabClick: function (e) {
+  tabClick: function(e) {
     var that = this;
     that.setData({
       sliderOffset: e.currentTarget.offsetLeft,
@@ -109,7 +123,7 @@ Page({
     });
 
     /*获取投票列表*/
-    if (that.data.activeIndex == 1){
+    if (that.data.activeIndex == 1) {
       that.setData({
         isVote: false
       })
@@ -119,13 +133,13 @@ Page({
       db.collection('vote').where({
         club_id: _.eq(app.globalData.currentClub._id)
       }).orderBy('_id', 'desc').get({
-        success(res){
+        success(res) {
           console.log("获取投票列表成功")
           that.setData({
             votes: res.data,
             isVote: res.data.length,
           })
-          for(var i = 0; i < that.data.votes.length; i++){
+          for (var i = 0; i < that.data.votes.length; i++) {
             var deadline = 'votes[' + i + '].deadline'
             that.setData({
               [deadline]: that.data.votes[i].deadline.toLocaleDateString().replace(/\//g, "-") + " " + that.data.votes[i].deadline.toTimeString().substr(0, 8)
@@ -136,19 +150,30 @@ Page({
         fail: console.error
       })
     }
+    
   },
 
   /*跳转到投票页面*/
-  jumpToVote: function(e){
+  jumpToVote: function(e) {
     var that = this
 
     /*获取点击投票*/
     var id = e.currentTarget.dataset.index;
     id = parseInt(id);
     app.globalData.currentVote = that.data.votes[id];
-    
+
     wx.navigateTo({
       url: '../vote/index',
     })
-  }
+  },
+
+  /*留言*/
+  adddetial: function() {
+    wx.navigateTo({
+      url: '../adddetial/adddetial',
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+  },
 })
