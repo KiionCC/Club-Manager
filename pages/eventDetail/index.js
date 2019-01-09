@@ -14,7 +14,7 @@ Page({
     eventState: 0,//活动状态：0为报名未截止活动未结束，1为报名截止活动未结束，2为报名截止活动结束
 
     myEnrollData: {},
-
+    isManager:false,
     show: false
   },
 
@@ -60,6 +60,19 @@ Page({
       success(res) {
         that.setData({
           'eventData.icon_id': res.data.icon_id
+        })
+      }
+    })
+
+    //获取是否是管理员身份
+    db.collection('club_member').where({
+      club_id:that.data.eventData.club_id,
+      student_id:app.globalData.stuNum,
+    }).get({
+      success(res) {
+        if (res.data[0].level == 1 || res.data[0].level== 2)
+        that.setData({
+          isManager: true
         })
       }
     })
@@ -192,6 +205,9 @@ Page({
   //活动结算
   finish: function () {
     var that = this
+    wx.showLoading({
+      title: '活动结算中',
+    })
     wx.cloud.callFunction({
       name: "finishEvent",
       data: {
@@ -200,6 +216,15 @@ Page({
       },
       success(res) {
         console.log(res)
+        wx.hideLoading()
+        wx.showToast({
+          title: '活动结算成功',
+          icon: 'success',
+          duration: 1000
+        })
+        that.setData({
+          'eventData.isOver': true
+        })
       },
       fail: console.error
     })
