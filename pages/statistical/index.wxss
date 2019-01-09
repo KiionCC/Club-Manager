@@ -2,10 +2,12 @@
 #sex {
   position: absolute;
   top: 0px;
+  width:100%;
 }
 #pro{
   position: absolute;
   top: 290px;
+  width:100%;
 }
 #pro_tap{
   position: absolute;
@@ -14,6 +16,7 @@
 #age {
   position: absolute;
   top: 650px;
+  width:100%;
 }
 #age_tap {
   position: absolute;

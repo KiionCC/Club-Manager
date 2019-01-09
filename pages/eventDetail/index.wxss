@@ -1,0 +1,24 @@
+/* pages/eventDetail/index.wxss */
+.weui-panel {
+    margin: 10px;
+    background: #FFF;
+    border-radius: 4px;
+}
+.weui-panel:first-child {
+    margin: 10px;
+}
+
+.user-face {
+    border-radius: 50%;
+}
+.weui-media-box__desc {
+    color: rgb(105, 105, 105);
+    margin-bottom: 1em
+}
+.weui-media-box__desc image {
+    width: 100%;
+    height: 150px;
+}
+.weui-panel__hd{
+  color: black
+}
