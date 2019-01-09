@@ -26,4 +26,5 @@ exports.main = async(event, context) => { //event传入hadChosen,删除对应sel
   } catch (e) {
     console.error(e)
   }
+  return 'ok'
 }
