@@ -30,3 +30,11 @@
     float: left;
     padding-top: 9px;
 }
+
+.canter{
+  position:fixed; 
+  display: flex;
+  bottom:0;
+  justify-content: center;
+  width: 100%;
+}
