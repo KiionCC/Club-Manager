@@ -13,6 +13,8 @@ Page({
     eventData: {},
     eventState:0,//活动状态：0为报名未截止活动未结束，1为报名截止活动未结束，2为报名截止活动结束
 
+    myEnrollData: {},
+
     show: false
   },
 
@@ -61,6 +63,9 @@ Page({
         })
       }
     })
+
+    //获取我的报名信息
+    that.getMyEnroll()
     
   },
 
@@ -116,6 +121,10 @@ Page({
   //活动报名
   enroll: function(){
     var that = this
+
+    wx.showLoading({
+      title: '提交中',
+    })
     wx.cloud.callFunction({
       name:"enrollEvent",
       data:{
@@ -123,8 +132,33 @@ Page({
         event_id:that.data.eventData._id,
         student_id:app.globalData.stuNum,
       },
-      sucess(res){
+      success(res){
         console.log(res)
+        wx.hideLoading()
+        wx.showToast({
+          title: '报名成功',
+          icon: 'success',
+          duration: 1000
+        })
+        that.getMyEnroll()
+      }
+    })
+  },
+
+  //获取报名信息
+  getMyEnroll: function(){
+    var that = this
+
+    db.collection('event_member').where({
+      club_id: _.eq(that.data.eventData.club_id),
+      student_id: _.eq(app.globalData.stuNum),
+      event_id: _.eq(that.data.eventData._id)
+    }).get({
+      success(res){
+        console.log(res.data)
+        that.setData({
+          myEnrollData: res.data
+        })
       }
     })
   }
