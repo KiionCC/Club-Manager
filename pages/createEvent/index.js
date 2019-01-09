@@ -165,7 +165,7 @@ Page({
   /*点击提交*/
   showTopTips: function () {
     var that = this
-    if (that.data.name && that.data.content) {
+    if (that.data.name && that.data.content && that.data.location) {
       var isSelection = true
       var begin_date = that.data.beginDate + ' ' + that.data.beginTime + ':00';
       var deadline = new Date(begin_date);
@@ -176,6 +176,9 @@ Page({
       if (isSelection) {
         /*符合提交要求*/
         console.log('符合提交要求')
+        wx.showLoading({
+          title: '提交中',
+        })
         if (!that.data.files.length) {
           wx.cloud.callFunction({
             name: 'createEvent',
@@ -193,6 +196,18 @@ Page({
             },
             complete: res => {
               console.log(res)
+              wx.hideLoading()
+              wx.showToast({
+                title: '发布成功',
+                icon: "success",
+                duration: 1000
+              })
+              setTimeout(function () {
+                wx.navigateBack({
+
+                })
+              }, 1000
+              )
             }
           })
         }
@@ -223,6 +238,19 @@ Page({
                 },
                 complete: res => {
                   console.log(res)
+                  wx.hideLoading()
+                  wx.showToast({
+                    title: '发布成功',
+                    icon: "success",
+                    duration: 1000
+                  })
+                  setTimeout(function(){
+                    wx.navigateBack({
+
+                    })
+                  }, 1000
+                  )
+
                 }
               })
             },
