@@ -187,5 +187,21 @@ Page({
         })
       }
     })
+  },
+
+  //活动结算
+  finish: function () {
+    var that = this
+    wx.cloud.callFunction({
+      name: "finishEvent",
+      data: {
+        event_id: that.data.eventData._id,
+        level:that.data.eventData.level,
+      },
+      success(res) {
+        console.log(res)
+      },
+      fail: console.error
+    })
   }
 })
