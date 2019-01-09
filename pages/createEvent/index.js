@@ -20,8 +20,8 @@ Page({
     isEnroll: false,
     isSign: false,
     isPublic: true,
-    enrollDate: "2017-09-01",
-    enrollTime: "12:01",
+    enrollDate: "",
+    enrollTime: "",
 
     image:"",
     files: []
@@ -168,9 +168,24 @@ Page({
     if (that.data.name && that.data.content && that.data.location) {
       var isSelection = true
       var begin_date = that.data.beginDate + ' ' + that.data.beginTime + ':00';
-      var deadline = new Date(begin_date);
-      var timestamp = Date.parse(deadline)
-      if (deadline < new Date()) {
+      var beginline = new Date(begin_date);
+      var timestamp = Date.parse(beginline)
+      if (that.data.isEnroll == true){
+        if (that.data.enrollDate == "" || that.data.enrollTime == "") {
+          isSelection = false
+        }
+      }
+
+      var timestamp2 = ""
+      if (that.data.enrollDate != "" && that.data.enrollTime != "") {
+        var enroll_date = that.data.enrollDate + ' ' + that.data.enrollTime + ':00';
+        var enrollline = new Date(enroll_date);
+        timestamp2 = Date.parse(enrollline)
+        if (enrollline < new Date() || enrollline > beginline) {
+          isSelection = false
+        }
+      }
+      if (beginline < new Date()) {
         isSelection = false
       }
       if (isSelection) {
@@ -190,6 +205,7 @@ Page({
               level: that.data.levelIndex+1,
               location: that.data.location,
               timestamp: timestamp,
+              timestamp2: timestamp2,
               isPublic: that.data.isPublic,
               isSign: that.data.isSign,
               isEnroll: that.data.isEnroll,
@@ -231,6 +247,7 @@ Page({
                   level: that.data.levelIndex + 1,
                   location: that.data.location,
                   timestamp: timestamp,
+                  timestamp2: timestamp2,
                   isPublic: that.data.isPublic,
                   isSign: that.data.isSign,
                   isEnroll: that.data.isEnroll,

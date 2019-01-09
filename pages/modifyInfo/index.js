@@ -12,15 +12,15 @@ Page({
     showTopTips: false,
     showBadTips: false,
 
-    student: {
-      stuNum: 0,
-      name: "",
-      major: "",
-      phoneNum: 0,
-    },
+    student: {    },
 
     sex: ["男", "女"],
     sexIndex: 0,
+
+    pro: ["北京市", "天津市", "上海市", "重庆市", "河北省", "山西省", "辽宁省", "吉林省", "黑龙江省", "江苏省", "浙江省", "安徽省", "福建省", "江西省", "山东省", "河南省", "湖北省", "湖南省", "广东省", "海南省", "四川省", "贵州省", "云南省", "陕西省", "甘肃省", "青海省", "台湾省", "内蒙古自治区", "广西壮族自治区", "西藏自治区", "宁夏回族自治区", "新疆维吾尔自治区", "香港特别行政区", "澳门特别行政区"],
+    proIndex: 0,
+
+    birthday: "1998-12-8"
   },
 
   /**
@@ -38,12 +38,7 @@ Page({
       success(res){
         console.log(res)
         that.setData({
-          student: {
-            stuNum: res.data[0].number,
-            name: res.data[0].name,
-            major: res.data[0].major,
-            phoneNum: res.data[0].phone_number
-          }  
+          student: res.data[0]
         })
         if(res.data.sex == '女'){
           that.setData({
@@ -141,12 +136,28 @@ Page({
     })
   },
 
+  /*改变籍贯*/
+  bindProChange: function (e) {
+    console.log('picker pro发生选择改变，携带值为', e.detail.value);
+
+    this.setData({
+      proIndex: e.detail.value
+    })
+  },
+
+  /*生日改变*/
+  bindDateChange: function (e) {
+    this.setData({
+      birthday: e.detail.value
+    })
+  },
+
   /*确认提交*/
   showTopTips: function (e) {
     var that = this;
 
     /*若有未填项，返回错误信息*/
-    if (!that.data.student.stuNum || !that.data.student.name || !that.data.student.major || !that.data.student.phoneNum) {
+    if (!that.data.student.number || !that.data.student.name || !that.data.student.major || !that.data.student.phone_number) {
       this.setData({
         showTopTips: true
       });
@@ -164,10 +175,13 @@ Page({
       wx.cloud.callFunction({
         name: 'changePersonalInfo',
         data: {
-          number: that.data.student.stuNum,
+          number: that.data.student.number,
           major: that.data.student.major,
-          phone_number: that.data.student.phoneNum,
+          phone_number: that.data.student.phone_number,
           sex: that.data.sex[that.data.sexIndex],
+          birthday: that.data.birthday,
+          hometown: that.data.pro[that.data.proIndex]
+
         },
         complete: res => {
           console.log(res)

@@ -10,6 +10,10 @@ exports.main = async (event, context) => {
 
   const _ = db.command
   var beginTime = new Date(event.timestamp)
+  var enrollTime = ""
+  if (event.timestamp2 != "") {
+    var enrollTime = new Date(event.timestamp2)
+  }
   try {
     if (event.image===undefined) { //未选择投票图片
       await db.collection('event').add({
@@ -22,6 +26,7 @@ exports.main = async (event, context) => {
           location: event.location,
           name: event.name,
           beginTime: beginTime,
+          signEndTime: enrollTime,
           isPublic: event.isPublic,
           isSign: event.isSign,
           isEnroll: event.isEnroll,
@@ -40,6 +45,7 @@ exports.main = async (event, context) => {
           location: event.location,
           name: event.name,
           beginTime: beginTime,
+          signEndTime: enrollTime,
           image: event.image,
           isPublic: event.isPublic,
           isSign: event.isSign,
