@@ -13,6 +13,7 @@ Page({
    club:"",
    members:[],
    selected:[],
+   rank:["社员","管理员","社长"],
    isSelecting: false,
    selectList:[],
     buttonText:"选择"

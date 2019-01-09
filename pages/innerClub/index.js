@@ -14,6 +14,7 @@ Page({
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
+    level:0,
 
     //活动
     events: [],
@@ -41,6 +42,16 @@ Page({
     var that = this
     wx.setNavigationBarTitle({
       title: app.globalData.currentClub.name//页面标题为社团名
+    })
+
+    db.collection('club_member').doc(app.globalData.stuNum + app.globalData.currentClub._id).get({
+      success(res){
+        console.log(res.data.level)
+        that.setData({
+          level:res.data.level
+        })
+      },
+      fail: console.error
     })
 
     that.getEvent()

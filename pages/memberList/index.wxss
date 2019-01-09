@@ -12,6 +12,7 @@
 
 .weui-cells{
   margin-top: 0px;
+  font-size:small
 }
 
 

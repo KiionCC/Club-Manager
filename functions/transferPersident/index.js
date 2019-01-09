@@ -9,7 +9,6 @@ exports.main = async (event, context) => {
   try {
     await db.collection('club_member').doc(event.old).update({
       data: {
-        job: "社员",
         level: 1
       }
     })
@@ -20,7 +19,6 @@ exports.main = async (event, context) => {
   try {
     await db.collection('club_member').doc(event.new).update({
       data: {
-        job: "社长",
         level: 2
       }
     })

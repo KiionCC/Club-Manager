@@ -58,8 +58,8 @@
               </navigator>
             </block>
           </view>
-          <view class="weui-cells__title">管理员功能</view>
-          <view class="weui-grids">
+          <view class="weui-cells__title" wx:if="{{level>0}}">管理员功能</view>
+          <view class="weui-grids" wx:if="{{level>0}}">
             <block wx:for="{{adminFunc}}" wx:key="*this">
               <navigator url="{{item.url}}" class="weui-grid" hover-class="weui-grid_active">
                 <image class="weui-grid__icon" src="../../images/{{item.icon}}.png" />

@@ -14,7 +14,7 @@ exports.main = async (event, context) => {
         student_id: _.in(event.members)
       }).update({
         data: {
-          job: '代表队',
+          job: '队员',
         }
       })
     } catch (e) {
@@ -27,7 +27,7 @@ exports.main = async (event, context) => {
         student_id: _.in(event.members)
       }).update({
         data: {
-          job: '社员',
+          job: '',
         }
       })
     } catch (e) {
