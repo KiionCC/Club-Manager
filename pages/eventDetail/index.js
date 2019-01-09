@@ -39,9 +39,6 @@ Page({
 
     var _signEndTime = new Date(that.data.eventData.signEndTime)
     var _beginTime = new Date(that.data.eventData.beginTime)
-    console.log(_beginTime)
-    console.log(_signEndTime)
-    console.log(new Date())
     //过了签到时间但是没到活动开始时间，关闭签到按钮，eventState设为1
     if (_signEndTime < new Date() && _beginTime > new Date()) {
       that.setData({
@@ -114,5 +111,21 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  //活动报名
+  enroll: function(){
+    var that = this
+    wx.cloud.callFunction({
+      name:"enrollEvent",
+      data:{
+        club_id:app.globalData.currentClub._id,
+        event_id:that.data.eventData._id,
+        student_id:app.globalData.stuNum,
+      },
+      sucess(res){
+        console.log(res)
+      }
+    })
   }
 })
