@@ -7,6 +7,7 @@ const db = cloud.database();
 // 云函数入口函数
 exports.main = async (event, context) => {
   const wxContext = cloud.getWXContext()
+  
 
   const _ = db.command
   //检查是否已经存在该学生
@@ -22,7 +23,9 @@ exports.main = async (event, context) => {
       data: {
         major: event.major,
         phone_number: event.phone_number,
-        sex: event.sex
+        sex: event.sex,
+        birthday: event.birthday,
+        hometown: event.hometown
       }
     })
     return 'ok'
