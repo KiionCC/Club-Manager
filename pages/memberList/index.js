@@ -35,7 +35,7 @@ Page({
         var objs=[]
         res.data.forEach(function (index){
           //level为0的是普通成员，为1的是管理员。社长权限最大
-          if (index.student_id == app.globalData.stuNum && index.job=="社长"){
+          if (index.student_id == app.globalData.stuNum && index.level==2){
             that.setData({
               selectList: ['设为代表队', '取消代表队','转移社长','设为管理员', '取消管理员','删除成员']
             })
