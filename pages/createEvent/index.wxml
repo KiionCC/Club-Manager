@@ -4,7 +4,7 @@
     <view class="page__desc">可以设置是否公开活动、活动报名时间与签到时间以协助最终结算</view>
   </view>
   <view class="page__bd">
-    <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">请完整填写除图片外所有信息</view>
+    <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">请正确填写除图片外所有信息</view>
 
     <view class="weui-cells__title">活动标题</view>
     <view class="weui-cells">
