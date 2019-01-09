@@ -13,6 +13,7 @@ Page({
     voteData: {},
     creator: {},
     options: [],
+    hadChosen: [],
     maxOption: 0,
     isVoted: false,
     checkboxMax: 2,
@@ -50,30 +51,36 @@ Page({
     db.collection('selections').where({
       vote_id: _.eq(that.data.voteData._id)
     }).get({
-      success(res) {
+      success(res1) {
         that.setData({
-          options: res.data
+          options: res1.data
         })
         /*判断是否已经投过票了 */
-        for (let i = 0; i < that.data.options.length; i++) {   //对vote中的每个选项查找
-          db.collection('mem_selection').where({
-            selection_id: that.data.options[i]._id,
-            student_id: app.globalData.stuNum,
-          }).get({
-            success(res1) {
-              db.collection('selections').doc(that.data.options[i]._id).get({
-                success(res2) {
-                  console.log(res2.data)
-                  if (res2.data.vote_id == that.data.voteData._id) {
-                    that.setData({
-                      isVoted: true
-                    })
-                  }
-                }
+        /*获取已选选项信息*/
+        console.log(that.data.voteData._id)
+        console.log(app.globalData.stuNum)
+        db.collection('mem_selection').where({
+          vote_id: that.data.voteData._id,
+          student_id: app.globalData.stuNum,
+        }).get({
+          success(res2) {
+            console.log(res2)
+            if (res2.data.length > 0) {
+              console.log('get')
+              that.setData({
+                hadChosen: res2.data //将包括vote_id,selection_id和student_id的数组存进data里面
+              });
+              that.setData({
+                isVoted: true
               })
+              console.log(hadChosen)
+              console.log(isVoted)
             }
-          })
-        }
+          },
+          fail: console.error
+        })
+
+
         /*获取选项最大值与百分比*/
         var temp = that.data.options[0].num
         for (var index in that.data.options) {
@@ -112,7 +119,10 @@ Page({
         }
       }
     })
+
   },
+
+
 
   /*单选change*/
   radioChange: function(e) {
@@ -209,6 +219,7 @@ Page({
             data: {
               selection_id: that.data.options[c]._id,
               student_id: app.globalData.stuNum,
+              vote_id: that.data.voteData._id
             },
             complete: res => {
               console.log(res)
@@ -256,16 +267,19 @@ Page({
 
   },
 
-  cancelVote: function () {
+  /*取消投票按钮*/
+  cancelVote: function() {
     var that = this
     wx.cloud.callFunction({
       name: 'cancelVote',
       data: {
-        student_id: app.globalData.stuNum,
-        vote_id: that.data.voteData._id,
+        hadChosen: that.data.hadChosen,//selections的num-1问题，需要selection_id
       },
       complete: res => {
         console.log(res)
+        that.setData({
+          isVoted: false
+        })
       }
     })
     db.collection('selections').where({
@@ -298,4 +312,3 @@ Page({
   }
 
 })
-
