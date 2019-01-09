@@ -221,8 +221,6 @@ Page({
         /*获取选项最大值与百分比*/
         var temp = 0
         for (var index in that.data.options) {
-          console.log(index)
-          console.log(temp)
           if (that.data.options[index].num > temp) {
             temp = that.data.options[index].num
           }
