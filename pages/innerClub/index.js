@@ -25,7 +25,7 @@ Page({
       { name: "成员统计" }
     ],
     adminFunc: [
-      { name: "发起活动" }, 
+      { name: "发起活动", url:'../createEvent/index' }, 
       { name: "发起投票", url:'../createVoting/index' }, 
       { name:"处理申请", url:'../handleJoin/index' },
     ],
