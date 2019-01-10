@@ -25,6 +25,7 @@
           </view>
           <view class="weui-cell__bd">{{item.name}}</view>
           <view class="weui-cell__bd">{{rank[item.level]}}</view>
+          <view class="weui-cell__bd">{{item.job=="队员"?"队员":""}}</view>
         </label>
       </checkbox-group>
     </view>
