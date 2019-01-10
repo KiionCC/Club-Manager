@@ -31,7 +31,7 @@
           <view wx:if="{{!isMyEmpty}}">
             <view wx:for="{{myClubs}}" wx:key="*this" wx:for-index="index" data-index="{{index}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active" style="background-color:white;margin:10px">
               <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-                <image class="weui-media-box__thumb" src="{{item.url?item.url:'../../images/no_image.jpg'}}" />
+                <image class="weui-media-box__thumb" src="{{item.icon_id?item.icon_id:'../../images/no_image.jpg'}}" />
               </view>
               <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
                 <view class="weui-media-box__title">{{item.name}}</view>
