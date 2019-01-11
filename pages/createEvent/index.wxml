@@ -33,7 +33,7 @@
           <view class="weui-label">活动开始日期</view>
         </view>
         <view class="weui-cell__bd">
-          <picker mode="date" value="{{beginDate}}" start="2015-09-01" end="2117-09-01" bindchange="bindBeginDateChange">
+          <picker mode="date" value="{{beginDate}}" start="{{beginDate}}" end="2117-09-01" bindchange="bindBeginDateChange">
             <view class="weui-select weui-select_in-select-after">{{beginDate}}</view>
           </picker>
         </view>
@@ -78,7 +78,7 @@
             <view class="weui-label">报名截止日期</view>
           </view>
           <view class="weui-cell__bd">
-            <picker mode="date" value="{{enrollDate}}" start="2015-09-01" end="2117-09-01" bindchange="bindEnrollDateChange">
+            <picker mode="date" value="{{enrollDate}}" start="{{enrollDate}}" end="2117-09-01" bindchange="bindEnrollDateChange">
               <view class="weui-select weui-select_in-select-after">{{enrollDate}}</view>
             </picker>
           </view>
@@ -88,7 +88,7 @@
             <view class="weui-label">报名截止时间</view>
           </view>
           <view class="weui-cell__bd">
-            <picker mode="time" value="{{enrollTime}}" start="09:01" end="21:01" bindchange="bindEnrollTimeChange">
+            <picker mode="time" value="{{enrollTime}}" start="00:00" end="23:59" bindchange="bindEnrollTimeChange">
               <view class="weui-select weui-select_in-select-after">{{enrollTime}}</view>
             </picker>
           </view>
