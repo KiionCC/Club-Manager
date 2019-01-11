@@ -19,10 +19,10 @@
     <view class="weui-panel__bd">
       <view class="weui-media-box weui-media-box_text">
         <view class="weui-media-box__title weui-media-box__title_in-text" style="font-size:22px">{{eventData.name}}</view>
-        <view class="weui-media-box__desc">活动时间：{{eventData.signEndTime}}</view>
+        <view class="weui-media-box__desc">活动时间：{{eventData.beginTime}}</view>
         <view class="weui-media-box__desc">活动地点：{{eventData.location}}</view>
         <block wx:if="eventData.isEnroll">
-          <view class="weui-media-box__desc">报名截止时间：{{eventData.beginTime}}</view>
+          <view class="weui-media-box__desc" hidden="{{!eventData.isEnroll}}">报名截止时间：{{eventData.signEndTime}}</view>
         </block>
         <view class="weui-media-box__desc">活动内容简介：{{eventData.content}}</view>
         <view class="weui-media-box__desc" wx:if="{{eventData.image}}">
