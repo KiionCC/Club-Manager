@@ -11,17 +11,17 @@ Page({
    */
   data: {
     eventData: {},
-    eventState: 0,//活动状态：0为报名未截止活动未结束，1为报名截止活动未结束，2为报名截止活动结束
+    eventState: 0, //活动状态：0为报名未截止活动未结束，1为报名截止活动未结束，2为报名截止活动结束
 
     myEnrollData: {},
-    isManager:false,
+    isManager: false,
     show: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     var that = this
     wx.setNavigationBarTitle({
       title: app.globalData.currentEvent.name //页面标题为社团名
@@ -38,18 +38,20 @@ Page({
         show: true
       })
     }
-   
-    that.setData({
-      'eventData.signEndTime': that.data.eventData.signEndTime.toLocaleDateString().replace(/\//g, "-") + " " + that.data.eventData.signEndTime.toTimeString().substr(0, 8)
-    })
+
+    if (that.data.eventData.signEndTime) {
+      that.setData({
+        'eventData.signEndTime': that.data.eventData.signEndTime.toLocaleDateString().replace(/\//g, "-") + " " + that.data.eventData.signEndTime.toTimeString().substr(0, 8)
+      })
+    }
 
     var _signEndTime = new Date(that.data.eventData.signEndTime)
     var _beginTime = new Date(that.data.eventData.beginTime)
     var timestamp = Date.parse(_beginTime)
-    timestamp = timestamp-30*60*1000
-    var beginSignTime=new Date(timestamp)
+    timestamp = timestamp - 30 * 60 * 1000
+    var beginSignTime = new Date(timestamp)
     //到了签到时间前半小时但是管理员还没点击结算按钮（活动未结束），打开签到按钮，eventState设为1
-    if (beginSignTime < new Date() && !that.data.eventData.isOver) {//刷新问题
+    if (beginSignTime < new Date() && !that.data.eventData.isOver) { //刷新问题
       that.setData({
         eventState: 1
       })
@@ -73,14 +75,14 @@ Page({
 
     //获取是否是管理员身份
     db.collection('club_member').where({
-      club_id:that.data.eventData.club_id,
-      student_id:app.globalData.stuNum,
+      club_id: that.data.eventData.club_id,
+      student_id: app.globalData.stuNum,
     }).get({
       success(res) {
-        if (res.data[0].level == 1 || res.data[0].level== 2)
-        that.setData({
-          isManager: true
-        })
+        if (res.data[0].level == 1 || res.data[0].level == 2)
+          that.setData({
+            isManager: true
+          })
       }
     })
 
@@ -92,54 +94,54 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
 
   //活动报名
-  enroll: function () {
+  enroll: function() {
     var that = this
 
     wx.showLoading({
@@ -166,7 +168,7 @@ Page({
   },
 
   //活动签到
-  sign: function () {
+  sign: function() {
     var that = this
     wx.showLoading({
       title: '签到中',
@@ -192,7 +194,7 @@ Page({
   },
 
   //获取报名信息
-  getMyEnroll: function () {
+  getMyEnroll: function() {
     var that = this
 
     db.collection('event_member').where({
@@ -210,7 +212,7 @@ Page({
   },
 
   //活动结算
-  finish: function () {
+  finish: function() {
     var that = this
     wx.showLoading({
       title: '活动结算中',
@@ -219,7 +221,7 @@ Page({
       name: "finishEvent",
       data: {
         event_id: that.data.eventData._id,
-        level:that.data.eventData.level,
+        level: that.data.eventData.level,
       },
       success(res) {
         console.log(res)
