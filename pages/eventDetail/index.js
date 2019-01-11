@@ -38,6 +38,10 @@ Page({
         show: true
       })
     }
+   
+    that.setData({
+      'eventData.signEndTime': that.data.eventData.signEndTime.toLocaleDateString().replace(/\//g, "-") + " " + that.data.eventData.signEndTime.toTimeString().substr(0, 8)
+    })
 
     var _signEndTime = new Date(that.data.eventData.signEndTime)
     var _beginTime = new Date(that.data.eventData.beginTime)
