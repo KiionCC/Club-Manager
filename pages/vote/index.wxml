@@ -28,7 +28,7 @@
     </view>
   </view>
 
-  <view class="weui-panel weui-panel_access" wx:if="{{!isVoted}}">
+  <view class="weui-panel weui-panel_access" wx:if="{{!isVoted && !voteOver}}">
     <view class="weui-panel__bd">
       <view class="weui-media-box weui-media-box_text">
         <view class="weui-media-box__title weui-media-box__title_in-text">{{voteData.is_multiple > 1?'多选，最多选择' + checkboxMax + '项':'单选'}}</view>
@@ -62,7 +62,7 @@
   </view>
 
 
-  <view class="weui-panel weui-panel_access" style="padding-bottom:20px;" hidden='{{!isVoted}}'>
+  <view class="weui-panel weui-panel_access" style="padding-bottom:20px;" wx:if='{{isVoted || voteOver}}'>
     <block wx:for="{{options}}" wx:key="*this">
       <view class="weui-panel__hd" >{{item.selection_name}}（{{item.num}}票）</view>
       <view class="weui-panel__bd">

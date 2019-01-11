@@ -32,7 +32,8 @@ exports.main = async (event, context) => {
       return await db.collection('club_member').add({
         data: {
           club_id: tmp2._id,
-          job: "社长",
+          level: 2,
+          job: "",
           point: 0,
           student_id: tmp1.data.student_id
         }
