@@ -16,16 +16,15 @@ Page({
    rank:["社员","管理员","社长"],
    isSelecting: false,
    selectList:[],
-    buttonText:"选择"
+    buttonText:"选择",
+    btnHide:false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.showLoading({
-      title: '加载中',
-    })
+
     wx.setNavigationBarTitle({
       title: '成员列表'
     })
@@ -38,6 +37,7 @@ Page({
       success(res){
         var objs=[]
         res.data.forEach(function (index){
+          
           //level为0的是普通成员，为1的是管理员。社长权限最大
           if (index.student_id == app.globalData.stuNum && index.level==2){
             that.setData({
@@ -47,6 +47,11 @@ Page({
           else if (index.student_id == app.globalData.stuNum && index.level==1){
             that.setData({
               selectList: ['设为代表队','取消代表队']
+            })
+          }
+          else if(index.student_id == app.globalData.stuNum && index.level == 0){
+            that.setData({
+              btnHide: true
             })
           }
           db.collection('student').where({
@@ -61,15 +66,15 @@ Page({
                 club: app.globalData.currentClub.name,
                 members: objs,
               })
+              wx.showLoading({
+                title: '加载中',
+                duration: 500
+              })
+              
             }
           })
         })
-        wx.hideLoading()
-        wx.showToast({
-          title: '加载完成',
-          icon: 'success',
-          duration: 2000
-        })
+        
       }
     })
     
@@ -110,6 +115,12 @@ Page({
         buttonText:"操作"
       });
     }
+    else if (that.data.selected.length==0){
+      this.setData({
+        isSelecting: false,
+        buttonText: "选择"
+      })
+    }
     else{
       wx.showActionSheet({
         itemList: this.data.selectList,
@@ -118,9 +129,7 @@ Page({
           if (!res.cancel) {
             console.log(res.tapIndex)
             if (res.tapIndex==0){//设为代表队
-              wx.showLoading({
-                title: '设置中',
-              })
+
               wx.cloud.callFunction({
                 // 云函数名称
                 name: 'manageMembers',
@@ -149,10 +158,13 @@ Page({
                               club: app.globalData.currentClub.name,
                               members: objs,
                             })
+                            wx.showLoading({
+                              title: '刷新中',
+                              duration: 500
+                            })
                           }
                         })
                       })
-                      wx.hideLoading()
                       wx.showToast({
                         title: '设置成功',
                         icon: 'success',
@@ -165,14 +177,13 @@ Page({
               })
               that.setData({
                 isSelecting: false,
-                buttonText: "选择"
+                buttonText: "选择",
+                selected:[]
               })
               
             }
             else if (res.tapIndex == 1){//取消代表队
-              wx.showLoading({
-                title: '设置中',
-              })
+              
               wx.cloud.callFunction({
                 // 云函数名称
                 name: 'manageMembers',
@@ -201,10 +212,14 @@ Page({
                               club: app.globalData.currentClub.name,
                               members: objs,
                             })
+                            wx.showLoading({
+                              title: '刷新中',
+                              duration: 500
+                            })
                           }
                         })
                       })
-                      wx.hideLoading()
+                      
                       wx.showToast({
                         title: '设置成功',
                         icon: 'success',
@@ -217,13 +232,12 @@ Page({
               })
               that.setData({
                 isSelecting: false,
-                buttonText: "选择"
+                buttonText: "选择",
+                selected: []
               })
             }
             else if (res.tapIndex == 2) {//转移社长
-              wx.showLoading({
-                title: '设置中',
-              })
+              
               wx.cloud.callFunction({
                 // 云函数名称
                 name: 'transferPersident',
@@ -252,10 +266,14 @@ Page({
                               club: app.globalData.currentClub.name,
                               members: objs,
                             })
+                            wx.showLoading({
+                              title: '刷新中',
+                              duration: 500
+                            })
                           }
                         })
                       })
-                      wx.hideLoading()
+                      
                       wx.showToast({
                         title: '设置成功',
                         icon: 'success',
@@ -268,13 +286,12 @@ Page({
               })
               that.setData({
                 isSelecting: false,
-                buttonText: "选择"
+                buttonText: "选择",
+                selected: []
               })
             }
             else if (res.tapIndex == 3) {//设为管理员
-              wx.showLoading({
-                title: '设置中',
-              })
+              
               wx.cloud.callFunction({
                 // 云函数名称
                 name: 'manageMembers',
@@ -303,10 +320,14 @@ Page({
                               club: app.globalData.currentClub.name,
                               members: objs,
                             })
+                            wx.showLoading({
+                              title: '刷新中',
+                              duration: 500
+                            })
                           }
                         })
                       })
-                      wx.hideLoading()
+                      
                       wx.showToast({
                         title: '设置成功',
                         icon: 'success',
@@ -319,13 +340,12 @@ Page({
               })
               that.setData({
                 isSelecting: false,
-                buttonText: "选择"
+                buttonText: "选择",
+                selected: []
               })
             }
             else if (res.tapIndex == 4) {//取消管理员
-              wx.showLoading({
-                title: '设置中',
-              })
+              
               wx.cloud.callFunction({
                 // 云函数名称
                 name: 'cancelManager',
@@ -354,10 +374,14 @@ Page({
                               club: app.globalData.currentClub.name,
                               members: objs,
                             })
+                            wx.showLoading({
+                              title: '刷新中',
+                              duration: 500
+                            })
                           }
                         })
                       })
-                      wx.hideLoading()
+                      
                       wx.showToast({
                         title: '设置成功',
                         icon: 'success',
@@ -370,13 +394,12 @@ Page({
               })
               that.setData({
                 isSelecting: false,
-                buttonText: "选择"
+                buttonText: "选择",
+                selected: []
               })
             }
             else if (res.tapIndex == 5) {//删除成员
-              wx.showLoading({
-                title: '设置中',
-              })
+              
               wx.cloud.callFunction({
                 // 云函数名称
                 name: 'removeMember',
@@ -405,10 +428,14 @@ Page({
                               club: app.globalData.currentClub.name,
                               members: objs,
                             })
+                            wx.showLoading({
+                              title: '刷新中',
+                              duration: 500
+                            })
                           }
                         })
                       })
-                      wx.hideLoading()
+                      
                       wx.showToast({
                         title: '设置成功',
                         icon: 'success',
@@ -421,7 +448,8 @@ Page({
               })
               that.setData({
                 isSelecting: false,
-                buttonText: "选择"
+                buttonText: "选择",
+                selected: []
               })
             }
           }
@@ -430,7 +458,8 @@ Page({
           console.log(res)
           that.setData({
             isSelecting: false,
-            buttonText: "选择"
+            buttonText: "选择",
+            selected: []
           })
         }
         
