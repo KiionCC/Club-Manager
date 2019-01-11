@@ -29,7 +29,7 @@
         </label>
       </checkbox-group>
     </view>
-    <view class="canter">
+    <view class="canter" wx:if="{{!btnHide}}">
 <button class="weui-btn" type="primary" bindtap="select">{{buttonText}}</button>
     </view>
     
